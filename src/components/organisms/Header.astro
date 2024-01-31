@@ -1,0 +1,57 @@
+---
+import Logo from "@components/atoms/Logo.astro";
+import BurgerMenu from "@components/atoms/BurgerMenu.astro";
+import ThemeSwitcher from "@components/atoms/ThemeSwitcher.astro";
+import LinkUnderline from "@components/atoms/LinkUnderline.astro";
+---
+
+<header>
+    <Logo />
+
+    <ul class="container">
+        <li><LinkUnderline href="/" active="active">Home</LinkUnderline></li>
+        <li><LinkUnderline href="/portfolio">Portfolio</LinkUnderline></li>
+        <li><LinkUnderline href="/blog">Blog</LinkUnderline></li>
+        <li><LinkUnderline href="/contact">Contact</LinkUnderline></li>
+        <li>
+            <ThemeSwitcher {...Astro.props} />
+        </li>
+    </ul>
+
+    <BurgerMenu />
+</header>
+
+<!-- backdrop-filter: blur(1rem); -->
+
+<style>
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 2rem;
+        gap: 2rem;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ul {
+        display: none;
+    }
+
+    @media (min-width: 40rem) {
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 56rem;
+
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: flex-end;
+        }
+    }
+</style>

@@ -1,0 +1,181 @@
+---
+const { theme: cookieTheme } = Astro.props;
+---
+
+<button>
+    <svg
+        class="none"
+        id="themeSwitcher"
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <circle id="moon" cx="9" cy="9" r="8" mask="url(#moon-mask)"></circle>
+        <mask id="moon-mask">
+            <rect width="18" height="18" fill="white"></rect>
+            <circle cx="14" cy="5" r="7" fill="black"></circle>
+        </mask>
+
+        <g id="rays">
+            <rect
+                x="4.76776"
+                y="5.47487"
+                width="2.5"
+                height="1"
+                transform="rotate(-135 4.76776 5.47487)"
+                fill="black"></rect>
+            <rect
+                x="14.4142"
+                y="15.1213"
+                width="2.5"
+                height="1"
+                transform="rotate(-135 14.4142 15.1213)"
+                fill="black"></rect>
+            <rect
+                x="3.48959"
+                y="9.56066"
+                width="2.5"
+                height="1"
+                transform="rotate(180 3.48959 9.56066)"
+                fill="black"></rect>
+            <rect
+                x="17.1317"
+                y="9.56066"
+                width="2.5"
+                height="1"
+                transform="rotate(180 17.1317 9.56066)"
+                fill="black"></rect>
+            <rect
+                x="9.56067"
+                y="14.6317"
+                width="2.5"
+                height="1"
+                transform="rotate(90 9.56067 14.6317)"
+                fill="black"></rect>
+            <rect
+                x="9.56065"
+                y="0.989592"
+                width="2.5"
+                height="1"
+                transform="rotate(90 9.56065 0.989592)"
+                fill="black"></rect>
+            <rect
+                x="5.47488"
+                y="13.3536"
+                width="2.5"
+                height="1"
+                transform="rotate(135 5.47488 13.3536)"
+                fill="black"></rect>
+            <rect
+                x="15.1213"
+                y="3.7071"
+                width="2.5"
+                height="1"
+                transform="rotate(135 15.1213 3.7071)"
+                fill="black"></rect>
+        </g>
+    </svg>
+</button>
+
+<style>
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+        vertical-align: middle;
+    }
+
+    #themeSwitcher {
+        fill: var(--clr-text);
+
+        * {
+            transition:
+                all 0.4s cubic-bezier(0.52, -0.52, 0.49, 1.43),
+                fill 0s;
+        }
+
+        &:hover {
+            > *,
+            #rays > * {
+                fill: var(--clr-primary);
+                /* opacity: 0.7; */
+            }
+        }
+    }
+
+    #themeSwitcher.none {
+        display: none;
+    }
+
+    #themeSwitcher.light {
+        #rays {
+            scale: 1;
+            opacity: 1;
+            rotate: 45deg;
+            transform-origin: center;
+        }
+
+        #moon-mask > circle {
+            cx: 25px;
+            cy: 20px;
+        }
+
+        #moon {
+            r: 3px;
+        }
+    }
+
+    #themeSwitcher.dark {
+        #rays {
+            scale: 0.1;
+            opacity: 0;
+        }
+
+        #moon-mask > circle {
+            cx: 14px;
+            cy: 5px;
+        }
+
+        #moon {
+            r: 8px;
+        }
+    }
+</style>
+
+<script define:vars={{ cookieTheme }}>
+    const button = document.querySelector("button");
+    const icon = document.querySelector("#themeSwitcher");
+    button.addEventListener("click", handleThemeClick);
+
+    function saveThemeCookie(theme) {
+        const d = new Date();
+        d.setTime(d.getTime() + 365 * 86400000);
+        document.cookie = `theme=${theme};expires=${d.toUTCString()}`;
+    }
+
+    function changeTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        icon.classList.remove("light", "dark", "none");
+        icon.classList.add(theme);
+        saveThemeCookie(theme);
+    }
+
+    function handleThemeClick() {
+        const theme = document.documentElement.getAttribute("data-theme");
+        const newTheme = theme == "light" ? "dark" : "light";
+        changeTheme(newTheme);
+    }
+
+    function getSystemDefaultTheme() {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+        theme = cookieTheme ? cookieTheme : getSystemDefaultTheme();
+        changeTheme(theme);
+    });
+</script>
