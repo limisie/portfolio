@@ -8,50 +8,128 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
 <header>
     <Logo />
 
-    <ul class="container">
-        <li><LinkUnderline href="/" active="active">Home</LinkUnderline></li>
-        <li><LinkUnderline href="/portfolio">Portfolio</LinkUnderline></li>
-        <li><LinkUnderline href="/blog">Blog</LinkUnderline></li>
-        <li><LinkUnderline href="/contact">Contact</LinkUnderline></li>
-        <li>
-            <ThemeSwitcher {...Astro.props} />
-        </li>
-    </ul>
+    <nav class="hidden">
+        <ul>
+            <li><LinkUnderline href="/">Home</LinkUnderline></li>
+            <li><LinkUnderline href="/portfolio">Portfolio</LinkUnderline></li>
+            <li><LinkUnderline href="/blog">Blog</LinkUnderline></li>
+            <li><LinkUnderline href="/contact">Contact</LinkUnderline></li>
+            <li>
+                <ThemeSwitcher {...Astro.props} />
+            </li>
+        </ul>
+    </nav>
 
     <BurgerMenu />
 </header>
 
-<!-- backdrop-filter: blur(1rem); -->
-
 <style>
     header {
         position: fixed;
+        z-index: 999;
         top: 0;
         left: 0;
         right: 0;
-        padding: 2rem;
+        height: calc(var(--nav-height) + 2 * var(--spacer));
+
+        padding: var(--spacer);
         gap: 2rem;
 
         display: flex;
         justify-content: space-between;
-        align-items: center;
-    }
+        align-items: flex-start;
 
-    ul {
-        display: none;
-    }
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+        transition:
+            -webkit-backdrop-filter 0.5s ease-out,
+            height 0.1s ease-out 0.5s;
 
-    @media (min-width: 40rem) {
+        nav {
+            width: 0;
+        }
+
         ul {
             list-style: none;
             padding: 0;
-            width: 100%;
-            max-width: 56rem;
+            margin: 0;
+            min-height: var(--nav-height);
 
             display: flex;
-            gap: 2rem;
             align-items: center;
-            justify-content: flex-end;
+            gap: 2rem;
+        }
+
+        &.unfolded {
+            height: 100vh;
+
+            backdrop-filter: blur(var(--spacer));
+            -webkit-backdrop-filter: blur(var(--spacer));
+            transition:
+                height 0.1s ease-out,
+                -webkit-backdrop-filter 0.5s ease-out;
+
+            ul {
+                padding-top: 5rem;
+
+                flex-direction: column;
+            }
+        }
+    }
+
+    @media (min-width: 40rem) {
+        header {
+            height: calc(var(--nav-height) + 2 * 2rem);
+            padding: 2rem;
+
+            nav {
+                width: 100%;
+                max-width: 56rem;
+                opacity: 1;
+
+                &.animated {
+                    transition: all 0.2s ease-in;
+                }
+            }
+
+            ul {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
         }
     }
 </style>
+
+<script>
+    const header = document.querySelector("header");
+    const nav = document.querySelector("nav");
+    const hamburgerButton = document.querySelector("#menuButton");
+
+    function toggleNav(animate = true) {
+        if (
+            window.scrollY < 50 &&
+            window.matchMedia("(min-width: 40rem)").matches
+        ) {
+            if (animate) {
+                nav.classList.add("animated");
+            }
+            nav.classList.remove("hidden");
+            hamburgerButton.classList.add("hidden");
+            setTimeout(() => {
+                nav.classList.remove("animated");
+            }, 200);
+        } else if (
+            window.scrollY >= 50 ||
+            !window.matchMedia("(min-width: 40rem)").matches
+        ) {
+            if (!header.classList.contains("unfolded")) {
+                nav.classList.add("hidden");
+                hamburgerButton.classList.remove("hidden");
+            }
+        }
+    }
+
+    toggleNav(false);
+    window.addEventListener("scroll", () => toggleNav());
+    window.addEventListener("resize", () => toggleNav());
+</script>

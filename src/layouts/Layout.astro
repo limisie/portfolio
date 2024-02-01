@@ -22,7 +22,7 @@ const {
     image = "/images/limi.jpg",
 } = Astro.props as Props;
 
-const cookieTheme = Astro.cookies.get("theme")?.value || null;
+const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 ---
 
 <html lang="en" data-theme={cookieTheme}>
@@ -36,6 +36,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || null;
         >
             :root {
                 --spacer: 1rem;
+                --nav-height: 3rem;
 
                 --ff-rubik: "Rubik", sans-serif;
                 --ff-montserrat: "Montserrat", sans-serif;
@@ -88,10 +89,6 @@ const cookieTheme = Astro.cookies.get("theme")?.value || null;
                 margin: 0;
             }
 
-            img {
-                display: block;
-            }
-
             .flow-content > * + * {
                 margin-top: var(--flow-space, var(--spacer));
             }
@@ -131,6 +128,21 @@ const cookieTheme = Astro.cookies.get("theme")?.value || null;
                 font-weight: var(--fw-semi-bold);
             }
 
+            img {
+                display: block;
+            }
+
+            button {
+                background: none;
+                border: none;
+                padding: 0;
+                vertical-align: middle;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
             .container {
                 max-width: 70rem;
                 margin: 0 auto;
@@ -139,8 +151,22 @@ const cookieTheme = Astro.cookies.get("theme")?.value || null;
 
             @media (min-width: 40rem) {
                 .container {
-                    padding: var(--spacer) 7rem;
+                    padding-inline: 7rem;
                 }
+            }
+
+            .visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .hidden {
+                opacity: 0 !important;
+                pointer-events: none;
+            }
+
+            .no-scroll {
+                overflow: hidden;
             }
         </style>
     </body>
