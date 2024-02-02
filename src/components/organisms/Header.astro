@@ -33,7 +33,7 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
         height: calc(var(--nav-height) + 2 * var(--spacer));
 
         padding: var(--spacer);
-        gap: 2rem;
+        gap: var(--spacer);
 
         display: flex;
         justify-content: space-between;
@@ -79,12 +79,12 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
 
     @media (min-width: 40rem) {
         header {
-            height: calc(var(--nav-height) + 2 * 2rem);
-            padding: 2rem;
+            height: calc(var(--nav-height) + 2 * var(--spacer));
+            padding: var(--spacer);
 
             nav {
                 width: 100%;
-                max-width: 56rem;
+                max-width: calc(var(--container-width) - 2 * var(--container-padding));
                 opacity: 1;
 
                 &.animated {

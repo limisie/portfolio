@@ -36,6 +36,8 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         >
             :root {
                 --spacer: 1rem;
+                --container-width: 75rem;
+                --container-padding: 7rem;
                 --nav-height: 3rem;
 
                 --ff-rubik: "Rubik", sans-serif;
@@ -106,13 +108,13 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 
             h1 {
                 font-family: var(--ff-montserrat);
-                font-size: var(--fs-h1);
+                font-size: var(--fs-h3);
                 font-weight: var(--fw-extra-bold);
             }
 
             h2 {
                 font-family: var(--ff-montserrat);
-                font-size: var(--fs-h2);
+                font-size: var(--fs-h4);
                 font-weight: var(--fw-bold);
             }
 
@@ -126,6 +128,10 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
                 font-family: var(--ff-rubik);
                 font-size: var(--fs-h4);
                 font-weight: var(--fw-semi-bold);
+            }
+
+            p {
+                font-size: var(--fs-xs);
             }
 
             img {
@@ -144,14 +150,42 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
             }
 
             .container {
-                max-width: 70rem;
+                max-width: var(--container-width);
                 margin: 0 auto;
                 padding: var(--spacer);
             }
 
             @media (min-width: 40rem) {
+                :root {
+                    --spacer: 2rem;
+                }
+
                 .container {
-                    padding-inline: 7rem;
+                    padding-inline: var(--container-padding);
+                }
+
+                h1 {
+                    font-size: var(--fs-h1);
+                    font-weight: var(--fw-extra-bold);
+                }
+
+                h2 {
+                    font-size: var(--fs-h2);
+                    font-weight: var(--fw-bold);
+                }
+
+                h3 {
+                    font-size: var(--fs-h3);
+                    font-weight: var(--fw-medium);
+                }
+
+                h4 {
+                    font-size: var(--fs-h4);
+                    font-weight: var(--fw-semi-bold);
+                }
+
+                p {
+                    font-size: var(--fs-p);
                 }
             }
 
