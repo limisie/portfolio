@@ -1,14 +1,92 @@
 <section>
     <div class="container">
         <h1>Jack of all trades master of none</h1>
-        <p>but oftentimes better than a master of one</p>
+        <p>but oftentimes better than a master of <span>one</span></p>
     </div>
 </section>
 
 <style>
     section {
-        padding-top: 10rem;
-        min-height: 80vh;
+        padding-top: calc(var(--nav-height) + 2 * var(--spacer));
+        padding-bottom: var(--container-padding);
+        min-height: 100vw;
         background: var(--clr-surface);
+
+        position: relative;
+        z-index: 0;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            backdrop-filter: blur(8rem);
+            -webkit-backdrop-filter: blur(8rem);
+            z-index: -1;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 8rem;
+            bottom: 5rem;
+            inset-inline: 5rem;
+
+            background: var(--clr-secondary);
+            z-index: -2;
+        }
+    }
+
+    h1 {
+        margin-top: 25vw;
+        max-width: 13rem;
+    }
+
+    p {
+        display: block;
+        text-align: end;
+        max-width: 10rem;
+        margin-left: auto;
+        margin-top: var(--spacer);
+    }
+
+    span {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0.25rem;
+            right: -0.1rem;
+            bottom: 0;
+            height: 0.5rem;
+            transform: skew(-12deg);
+            background: var(--clr-secondary);
+            z-index: -1;
+        }
+    }
+
+    @media (min-width: 40rem) {
+        section {
+            min-height: 80vh;
+
+            &::after {
+                margin: 0 auto;
+                max-width: calc(
+                    var(--container-width) - var(--container-padding) * 4
+                );
+                inset: calc(var(--container-padding) * 2);
+            }
+        }
+
+        h1 {
+            margin-top: 25vh;
+            max-width: 37rem;
+        }
+
+        p {
+            max-width: 14rem;
+            font-size: var(--fs-medium);
+        }
     }
 </style>

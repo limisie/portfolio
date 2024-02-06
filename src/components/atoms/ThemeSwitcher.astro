@@ -92,7 +92,12 @@ const { theme: cookieTheme } = Astro.props;
             > *,
             #rays > * {
                 fill: var(--clr-primary);
-                /* opacity: 0.7; */
+            }
+        }
+
+        #rays {
+            * {
+                fill: var(--clr-text);
             }
         }
     }

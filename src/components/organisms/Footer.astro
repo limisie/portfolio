@@ -1,0 +1,55 @@
+---
+import SocialLinks from "@components/molecules/SocialLinks.astro";
+---
+
+<footer>
+    <div class="container">
+        <h4>Contact</h4>
+        <a href="mailto:k.limisiewicz@gmail.com">k.limisiewicz@gmail.com</a>
+        <a href="tel:+48507087555">+48 507 087 555</a>
+
+        <div class="flex">
+            <p>Copyright 2024 © Kaja Limisiewicz. All right reserved</p>
+            <SocialLinks />
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer {
+        background: var(--clr-surface);
+        padding-block: calc(2 * var(--spacer));
+    }
+
+    .container {
+        h4 {
+            margin-bottom: 2rem;
+        }
+
+        > a {
+            display: block;
+            width: fit-content;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .flex {
+        flex-direction: column-reverse;
+        align-items: start;
+        margin-top: 2rem;
+
+        p {
+            font-size: var(--fs-small);
+            color: var(--clr-text);
+            opacity: 0.3;
+        }
+    }
+
+    @media (min-width: 40rem) {
+        .flex {
+            flex-direction: row;
+            align-items: end;
+            margin-top: 1.5rem;
+        }
+    }
+</style>

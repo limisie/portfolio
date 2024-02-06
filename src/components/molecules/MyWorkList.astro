@@ -1,0 +1,25 @@
+---
+import Card from "@components/molecules/Card.astro";
+import img from "@assets/game.png";
+---
+
+<div class="flex equal">
+    <Card image={img} />
+    <Card />
+    <Card />
+    <Card />
+</div>
+
+<style>
+    .flex {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media (min-width: 40rem) {
+        .flex {
+            flex-direction: row;
+            gap: 1rem;
+        }
+    }
+</style>

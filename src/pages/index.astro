@@ -1,47 +1,14 @@
 ---
+import About from "@components/organisms/About.astro";
 import Hero from "@components/organisms/Hero.astro";
+import MyWork from "@components/organisms/MyWork.astro";
 import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout>
 	<main>
 		<Hero />
-
-		<section>
-			<div class="container">
-				<h2>
-					I'm an independent Computer Science student with experience
-					in architecture design.
-				</h2>
-				<p>
-					I love to learn and to create... anything from illustration,
-					flyers, posters, 3d visualizations to movies, furniture and
-					apps. Currently I'm looking for a job that will let me grow
-					as a front-end developer with full-stack developer
-					perspective.
-				</p>
-			</div>
-		</section>
-
-		<section>
-			<div class="container">
-				<div>
-					<h2>My work</h2>
-					<a>See all</a>
-				</div>
-				<div>
-					<!-- cards -->
-				</div>
-			</div>
-		</section>
+		<About />
+		<MyWork />
 	</main>
-
-	<footer>
-		<div class="container">
-			<h4>Contact</h4>
-			<p>k.limisiewicz@gmail.com</p>
-			<p>+48 507 087 555</p>
-			<p>Copyright 2024 © Kaja Limisiewicz. All right reserved</p>
-		</div>
-	</footer>
 </Layout>
