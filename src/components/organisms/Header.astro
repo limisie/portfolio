@@ -43,7 +43,8 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
         -webkit-backdrop-filter: blur(0);
         transition:
             -webkit-backdrop-filter 0.5s ease-out,
-            height 0.1s ease-out 0.5s;
+            backdrop-filter 0.5s ease-out,
+            height 0.01s ease-out 0.5s;
 
         nav {
             width: 0;
@@ -55,7 +56,7 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
             margin: 0;
             min-height: var(--nav-height);
 
-            gap: 2rem;
+            gap: calc(2 * var(--spacer));
         }
 
         &.unfolded {
@@ -64,7 +65,8 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
             backdrop-filter: blur(var(--spacer));
             -webkit-backdrop-filter: blur(var(--spacer));
             transition:
-                height 0.1s ease-out,
+                height 0.01s ease-out,
+                backdrop-filter 0.5s ease-out,
                 -webkit-backdrop-filter 0.5s ease-out;
 
             ul {

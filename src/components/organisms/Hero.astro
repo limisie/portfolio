@@ -1,8 +1,13 @@
+---
+import HeroBackground from "@components/molecules/HeroBackground.astro";
+---
+
 <section>
     <div class="container">
         <h1>Jack of all trades master of none</h1>
         <p>but oftentimes better than a master of <span>one</span></p>
     </div>
+    <HeroBackground />
 </section>
 
 <style>
@@ -14,27 +19,6 @@
 
         position: relative;
         z-index: 0;
-
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-
-            backdrop-filter: blur(8rem);
-            -webkit-backdrop-filter: blur(8rem);
-            z-index: -1;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 8rem;
-            bottom: 5rem;
-            inset-inline: 5rem;
-
-            background: var(--clr-secondary);
-            z-index: -2;
-        }
     }
 
     h1 {

@@ -1,0 +1,46 @@
+<div class="background">
+    <div class="container">
+        <div class="shape"></div>
+    </div>
+    <div class="filter"></div>
+</div>
+
+<style>
+    .background {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+    }
+
+    .container {
+        position: relative;
+        height: 100%;
+    }
+
+    .shape {
+        content: "";
+        position: absolute;
+
+        top: 8rem;
+        bottom: 4rem;
+        inset-inline: 4rem;
+
+        background: var(--clr-secondary);
+    }
+
+    .filter {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        backdrop-filter: blur(8rem);
+        -webkit-backdrop-filter: blur(8rem);
+    }
+
+    @media (min-width: 40rem) {
+        .shape {
+            bottom: var(--container-padding);
+            inset-inline: calc(1.5 * var(--container-padding));
+        }
+    }
+</style>

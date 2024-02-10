@@ -33,7 +33,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
     :root {
         --spacer: 1rem;
         --container-width: 75rem;
-        --container-padding: 7rem;
+        --container-padding: 1rem;
         --nav-height: 3rem;
 
         --ff-rubik: "Rubik", sans-serif;
@@ -154,8 +154,8 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 
     .container {
         max-width: var(--container-width);
+        padding-inline: var(--container-padding);
         margin: 0 auto;
-        padding-inline: var(--spacer);
     }
 
     .flex {
@@ -178,10 +178,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
     @media (min-width: 40rem) {
         :root {
             --spacer: 2rem;
-        }
-
-        .container {
-            padding-inline: var(--container-padding);
+            --container-padding: 7rem;
         }
 
         h1 {
