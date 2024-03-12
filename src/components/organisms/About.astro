@@ -1,39 +1,32 @@
-<section>
-    <div class="container flex">
+<div class="container flex vertical-split">
+    <div>
         <h2>
             I'm an independent Computer Science student with experience in
             architecture design.
         </h2>
-        <div class="flow-content">
-            <p>
-                I love to learn and to create... anything from illustration,
-                flyers, posters, 3d visualizations to movies, furniture and
-                apps.
-            </p>
-            <p>
-                Currently I'm looking for a job that will let me grow as a
-                front-end developer with full-stack developer perspective.
-            </p>
-        </div>
     </div>
-</section>
+    <div class="flow-content">
+        <p>
+            I love to learn and to create... anything from illustration, flyers,
+            posters, 3d visualizations to movies, furniture and apps.
+        </p>
+        <p>
+            Currently I'm looking for a job that will let me grow as a front-end
+            developer with full-stack developer perspective.
+        </p>
+    </div>
+</div>
 
 <style>
-    .flex {
+    .flex.vertical-split {
         flex-direction: column;
+        align-items: center;
+        --first-split: 62%;
     }
 
     @media (min-width: 40rem) {
-        .flex {
+        .flex.vertical-split {
             flex-direction: row-reverse;
-
-            > h2 {
-                flex-basis: 60%;
-            }
-
-            > div {
-                flex-basis: 40%;
-            }
         }
     }
 </style>

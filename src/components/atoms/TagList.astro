@@ -1,0 +1,28 @@
+---
+const { rootDir, tags } = Astro.props;
+---
+
+<div class="flex">
+    {
+        tags.map((tag) => (
+            <a class="light-font" href={`/${rootDir}/${tag}`}>
+                {tag}
+            </a>
+        ))
+    }
+</div>
+
+<style>
+    .flex {
+        justify-content: start;
+        gap: 1rem;
+
+        > a {
+            z-index: 2;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+</style>

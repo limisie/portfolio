@@ -1,0 +1,26 @@
+---
+import Layout from "@layouts/Layout.astro";
+import IconLink from "@components/atoms/IconLink.astro";
+import arrowRight from "@assets/icons/right-arrow.svg?raw";
+---
+
+<Layout title="Page Not Found">
+    <section>
+        <div class="container">
+            <h2>Oh well... This is awkward...</h2>
+            <p>I seem to have missed something</p>
+            <IconLink href="/" text="Take me home" iconRight={arrowRight} />
+        </div>
+    </section>
+</Layout>
+
+<style>
+    div {
+        margin-top: 15vh;
+        text-align: end;
+
+        >:last-child {
+            margin-top: var(--spacer);
+        }
+    }
+</style>

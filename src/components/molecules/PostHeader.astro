@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import SocialLink from "@components/atoms/SocialLink.astro";
+import TagList from "@components/atoms/TagList.astro";
+
+const { title, tags, links, date, coverImage, timeToRead } = Astro.props;
+
+// #TODO social links
+---
+
+<div class="flow-content">
+    <TagList rootDir="blog" tags={tags} />
+    <h1>{title}</h1>
+    <!-- {
+        links.map((link) => {
+            <SocialLink
+                name={link.name}
+                url={link.url}
+                username={link.username}
+                icon={link.icon}
+            />;
+        })
+    } -->
+    <div class="flex">
+        <p class="light-font">{date}</p>
+        <p class="light-font">{timeToRead} min read</p>
+    </div>
+    {
+        coverImage && (
+            <div class="img-wrapper">
+                <Image
+                    src={coverImage.url}
+                    alt={coverImage.alt}
+                    width={100}
+                    height={100}
+                />
+            </div>
+        )
+    }
+</div>
+
+<style>
+    .flow-content {
+        --flow-space: 0.8rem;
+    }
+
+    .img-wrapper {
+        margin-top: var(--spacer);
+        aspect-ratio: 2/1;
+        overflow: hidden;
+
+        img {
+            object-fit: cover;
+        }
+    }
+</style>

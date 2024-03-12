@@ -1,0 +1,29 @@
+---
+import { render } from "datocms-structured-text-to-html-string";
+const { content } = Astro.props;
+---
+
+<article class="flow-content">
+    <Fragment set:html={render(content)} />
+</article>
+
+<style>
+    article {
+        h1 {
+            font-family: var(--ff-quicksand);
+            font-size: var(--fs-h3);
+        }
+        
+        p {
+            text-align: justify;
+        }
+
+        [id]::before {
+            content: "";
+            display: block;
+            height: 8rem;
+            margin-top: -8rem;
+            visibility: hidden;
+        }
+    }
+</style>

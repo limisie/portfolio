@@ -1,0 +1,56 @@
+---
+import { getHeadingsFromDastDocument } from "@scripts/utils.ts";
+
+import PostBody from "@components/molecules/PostBody.astro";
+import PostTableOfContents from "@components/molecules/PostTableOfContents.astro";
+
+const { content } = Astro.props;
+const headings = getHeadingsFromDastDocument(content);
+---
+
+<div class="flex vertical-split">
+    <PostBody content={content} />
+    <PostTableOfContents headings={headings} />
+</div>
+
+<style>
+    .flex.vertical-split {
+        --first-split: 72%;
+        margin-top: var(--spacer);
+    }
+</style>
+
+<script>
+    const options = {
+        rootMargin: "20% 0% -75% 0%",
+    };
+
+    const tocAllItems = document.querySelectorAll("[id^='toc-']");
+    const observer = new IntersectionObserver(function (entries, observer) {
+        entries.forEach((entry) => {
+            const tocEntry = document.getElementById(`toc-${entry.target.id}`);
+            if (entry.isIntersecting) {
+                tocAllItems.forEach((item) => {
+                    if (item == tocEntry) {
+                        item.classList.toggle("active", true);
+                    } else {
+                        item.classList.toggle("active", false);
+                    }
+                });
+            }
+        });
+    }, options);
+
+    const article = document.querySelector("article");
+    const articleHeaders = article.querySelectorAll("h1");
+    const introduction = article.firstElementChild;
+    const targets = [introduction, ...articleHeaders];
+    targets.map((target) => {
+        target.id = target.textContent.replace(/\s+/g, "-").toLowerCase();
+        observer.observe(target);
+    });
+    introduction.id = "introduction";
+
+    const tocIntroduction = document.getElementById("toc-introduction");
+    tocIntroduction.classList.add("active");
+</script>

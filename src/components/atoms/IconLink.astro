@@ -1,0 +1,57 @@
+---
+const { href = "/", text, iconRight, iconLeft } = Astro.props;
+---
+
+<a href={href} class="flex">
+    {
+        iconLeft && (
+            <span class="icon-left">
+                <Fragment set:html={iconLeft} />
+            </span>
+        )
+    }
+    <p>{text}</p>
+    {
+        iconRight && (
+            <span class="icon-right">
+                <Fragment set:html={iconRight} />
+            </span>
+        )
+    }
+</a>
+
+<style>
+    .flex {
+        align-items: center;
+        justify-content: end;
+        gap: 0.1rem;
+    }
+
+    span {
+        line-height: 0.5;
+    }
+
+    a {
+        fill: var(--clr-text);
+
+        [class*="icon"] {
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+            opacity: 0.5;
+
+            [class*="icon"] {
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .icon-left {
+                transform: translateX(-3px);
+            }
+
+            .icon-right {
+                transform: translateX(3px);
+            }
+        }
+    }
+</style>

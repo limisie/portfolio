@@ -1,0 +1,50 @@
+---
+import leftArrow from "@assets/icons/left-arrow.svg?raw";
+import rightArrow from "@assets/icons/right-arrow.svg?raw";
+const {
+    pageData: { currentPage, lastPage, url },
+} = Astro.props;
+---
+
+<div class="flex">
+    <a
+        class:list={["left-arrow", { "disabled": currentPage <= 1 }]}
+        href={url.prev}><Fragment set:html={leftArrow} /></a
+    >
+    <p>{currentPage}</p>
+    <a
+        class:list={["right-arrow", { "disabled": currentPage >= lastPage }]}
+        href={url.next}><Fragment set:html={rightArrow} /></a
+    >
+</div>
+
+<style>
+    .flex {
+        align-items: center;
+        justify-content: end;
+        gap: 0.5rem;
+    }
+
+    a[class*="arrow"] {
+        fill: var(--clr-text);
+        transition: transform 0.3s ease-in-out;
+
+        &.disabled {
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        &:hover {
+            opacity: 0.5;
+            pointer-events: unset;
+
+            &.right-arrow {
+                transform: translateX(3px);
+            }
+
+            &.left-arrow {
+                transform: translateX(-3px);
+            }
+        }
+    }
+</style>

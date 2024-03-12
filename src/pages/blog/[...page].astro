@@ -1,0 +1,28 @@
+---
+import PostList from "@components/organisms/PostList.astro";
+import Layout from "@layouts/Layout.astro";
+import { getAllArticles } from "@scripts/data.js";
+
+export async function getStaticPaths({ paginate }) {
+    const articles = await getAllArticles();
+
+    return paginate(articles, {
+        pageSize: 5,
+    });
+}
+
+const { page } = Astro.props;
+const { data: articles, currentPage, lastPage, url } = page;
+---
+
+<Layout title="Blog | Kaja Limisiewicz">
+    <section>
+        <div class="container">
+            <h1>Recent posts</h1>
+            <PostList
+                articles={articles}
+                pageData={{ currentPage, lastPage, url }}
+            />
+        </div>
+    </section>
+</Layout>

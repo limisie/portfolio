@@ -1,0 +1,49 @@
+---
+import PostListItem from "@components/molecules/PostListItem.astro";
+import PageSelector from "@components/atoms/PageSelector.astro";
+import { getDateWithOrdinalSuffix } from "@scripts/utils.js";
+const { articles, pageData } = Astro.props;
+---
+
+<div class:list={["flex", { "vertical-split": pageData }]}>
+    <ul>
+        {
+            articles.map((article) => (
+                <PostListItem
+                    title={article.title}
+                    excerpt={article.excerpt}
+                    publishDate={getDateWithOrdinalSuffix(article.publishDate)}
+                    coverImage={article.coverImage}
+                    slug={article.slug}
+                    tags={article.tags}
+                />
+            ))
+        }
+    </ul>
+    <div>
+        {pageData && <PageSelector {pageData} />}
+    </div>
+</div>
+
+<style>
+    ul {
+        padding: 0;
+        margin-top: 2rem;
+
+        li {
+            list-style: none;
+        }
+    }
+
+    ul + div {
+        align-self: unset;
+    }
+
+    @media (min-width: 60rem) {
+        ul + div {
+            position: sticky;
+            top: calc(var(--spacer) + 12px);
+            align-self: flex-start;
+        }
+    }
+</style>

@@ -9,14 +9,21 @@ const {
 } = Astro.props;
 ---
 
-<a class="card" href={url}>
-    <div class="wrapper">
-        {image ? <Image src={image} alt="" /> : <div class="placeholder" />}
+<div class="card">
+    <a href={url}></a>
+    <div class="img-wrapper">
+        {
+            image ? (
+                <Image src={image} alt="" />
+            ) : (
+                <div class="placeholder-background" />
+            )
+        }
     </div>
 
     <h4>{title}</h4>
     <p>{description}</p>
-</a>
+</div>
 
 <style>
     .card {
@@ -26,48 +33,21 @@ const {
         p {
             font-size: var(--fs-small);
         }
-
-        &:hover {
-            img {
-                filter: grayscale(0%);
-                opacity: 1;
-            }
-
-            .placeholder {
-                opacity: 1;
-            }
-        }
     }
 
-    .wrapper {
+    .img-wrapper {
         margin-bottom: calc(0.5 * var(--spacer));
 
-        img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
+        img,
+        .placeholder-background {
             aspect-ratio: 3/1;
-            opacity: 0.4;
-
-            filter: grayscale(80%);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .placeholder {
-            width: 100%;
-            aspect-ratio: 3/1;
-            background-color: var(--clr-text);
-            mask-image: url("../../assets/placeholder.svg");
-            -webkit-mask-image: url("../../assets/placeholder.svg");
-            opacity: 0.4;
-            transition: opacity 0.3s ease-in-out;
         }
     }
 
     @media (min-width: 40rem) {
-        .wrapper {
+        .img-wrapper {
             img,
-            .placeholder {
+            .placeholder-background {
                 aspect-ratio: 1/1;
             }
         }

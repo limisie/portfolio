@@ -1,5 +1,5 @@
-<button id="menuButton" class="hidden">
-    <svg id="hamburger" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<button id="burgerButton" class="hidden">
+    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
         <rect class="top line" x="11" y="17" width="25" height="1"></rect>
         <rect class="middle line" x="11" y="24" width="25" height="1"></rect>
         <rect class="bottom line" x="11" y="31" width="25" height="1"></rect>
@@ -9,8 +9,9 @@
 <style>
     button {
         max-height: var(--nav-height);
+        transform: translateX(12px);
 
-        #hamburger {
+        svg {
             height: var(--nav-height);
             width: var(--nav-height);
             fill: var(--clr-text);
@@ -19,26 +20,10 @@
                 transform-origin: center;
                 transition: all 0.3s ease-in-out;
             }
-
-            &.unfolded {
-                .middle {
-                    opacity: 0;
-                }
-
-                .top {
-                    y: 1.5rem;
-                    transform: rotate(45deg);
-                }
-
-                .bottom {
-                    y: 1.5rem;
-                    transform: rotate(-45deg);
-                }
-            }
         }
 
         &:hover {
-            #hamburger {
+            svg {
                 opacity: 0.3;
 
                 .top {
@@ -56,21 +41,29 @@
                 }
             }
         }
+
+        &.unfolded {
+            svg {
+                .middle {
+                    opacity: 0;
+                }
+
+                .top {
+                    y: 1.5rem;
+                    transform: rotate(45deg);
+                }
+
+                .bottom {
+                    y: 1.5rem;
+                    transform: rotate(-45deg);
+                }
+            }
+        }
+    }
+
+    @media (min-width: 40rem) {
+        button {
+            transform: translateX(0px);
+        }
     }
 </style>
-
-<script>
-    const body = document.querySelector("body");
-    const header = document.querySelector("header");
-    const nav = document.querySelector("nav");
-    const hamburgerButton = document.querySelector("#menuButton");
-    const haburgerIcon = document.querySelector("#hamburger");
-    hamburgerButton.addEventListener("click", handleMenuClick);
-
-    function handleMenuClick() {
-        body.classList.toggle("no-scroll");
-        header.classList.toggle("unfolded");
-        nav.classList.toggle("hidden");
-        haburgerIcon.classList.toggle("unfolded");
-    }
-</script>

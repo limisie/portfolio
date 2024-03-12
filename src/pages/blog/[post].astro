@@ -1,0 +1,56 @@
+---
+import {
+    getDateWithOrdinalSuffix,
+    getTimeToReadDastDocument,
+} from "@scripts/utils.js";
+
+import Layout from "@layouts/Layout.astro";
+import CardList from "@components/organisms/CardList.astro";
+import PostContent from "@components/molecules/PostContent.astro";
+import PostHeader from "@components/molecules/PostHeader.astro";
+import { getAllArticles } from "@scripts/data.js";
+
+export async function getStaticPaths() {
+    const articles = await getAllArticles();
+
+    return articles.map((article) => {
+        return {
+            params: { post: article.slug },
+            props: {
+                tags: article.tags,
+                title: article.title,
+                publishDate: article.publishDate,
+                body: article.content,
+                image: article.coverImage
+                    ? {
+                          url: article.coverImage.url,
+                          alt: article.coverImage.alt,
+                      }
+                    : null,
+            },
+        };
+    });
+}
+
+const { post } = Astro.params;
+const { tags, title, publishDate, body, image } = Astro.props;
+---
+
+<Layout title={title + " | Kaja Limisiewicz"}>
+    <section>
+        <div class="container">
+            <PostHeader
+                title={title}
+                date={getDateWithOrdinalSuffix(publishDate)}
+                timeToRead={getTimeToReadDastDocument(body)}
+                tags={tags}
+                links={null}
+                coverImage={image}
+            />
+            <PostContent content={body} />
+        </div>
+    </section>
+    <section>
+        <CardList href="/blog" listHeader="Other posts" list={[0, 0, 0, 0]} />
+    </section>
+</Layout>

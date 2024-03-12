@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import TagList from "@components/atoms/TagList.astro";
+
+const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
+---
+
+<li class="card">
+    <a href=`/blog/${slug}`></a>
+    <div class="grid">
+        <div class="img-wrapper">
+            {
+                coverImage ? (
+                    <Image
+                        src={coverImage.url}
+                        alt={coverImage.alt}
+                        width={500}
+                        height={500}
+                    />
+                ) : (
+                    <div class="placeholder-background" />
+                )
+            }
+        </div>
+        <div class="flow-content">
+            <TagList rootDir="blog" tags={tags} />
+            <h4>{title}</h4>
+            <p class="abstract">{excerpt}</p>
+        </div>
+        <p class="date light-font">{publishDate}</p>
+    </div>
+</li>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 8rem auto 1rem;
+
+        grid-template-areas:
+            "img"
+            "content"
+            "date";
+
+        margin-bottom: 2rem;
+        gap: 1rem;
+    }
+
+    .flow-content {
+        --flow-space: 0.4rem;
+        grid-area: content;
+
+        .abstract {
+            font-size: var(--fs-small);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+    }
+
+    .date {
+        grid-area: date;
+        justify-self: start;
+        align-self: end;
+    }
+
+    .img-wrapper {
+        grid-area: img;
+        overflow: hidden;
+    }
+
+    @media (min-width: 40rem) {
+        .grid {
+            grid-template-columns: 10rem auto;
+            grid-template-rows: 7rem 2rem;
+
+            grid-template-areas:
+                "img content"
+                "img date";
+        }
+    }
+</style>

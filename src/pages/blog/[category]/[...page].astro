@@ -1,0 +1,47 @@
+---
+import PostList from "@components/organisms/PostList.astro";
+import Layout from "@layouts/Layout.astro";
+import { getAllArticles } from "@scripts/data.js";
+
+export async function getStaticPaths({ paginate }) {
+    const articles = await getAllArticles();
+    const tags = [...new Set(articles.map((article) => article.tags).flat())];
+
+    return tags.flatMap((category) => {
+        const filteredPosts = articles.filter((article) =>
+            article.tags.includes(category),
+        );
+        return paginate(filteredPosts, {
+            params: { category },
+            pageSize: 5,
+        });
+    });
+}
+
+const { category } = Astro.params;
+const {
+    page: { data: articles, currentPage, lastPage, url },
+} = Astro.props;
+---
+
+<Layout title=`${category} posts | Kaja Limisiewicz``>
+    <section>
+        <div class="container">
+            <h1>Posts about <span>{category}</span></h1>
+            <PostList
+                articles={articles}
+                pageData={{ currentPage, lastPage, url }}
+            />
+        </div>
+    </section>
+</Layout>
+
+<style>
+    h1 {
+        font-weight: var(--fw-medium);
+    }
+
+    span {
+        font-weight: var(--fw-extra-bold);
+    }
+</style>

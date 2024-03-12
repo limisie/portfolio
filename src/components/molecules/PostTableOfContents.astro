@@ -1,0 +1,73 @@
+---
+const { headings } = Astro.props;
+
+const headingsData = headings.map((heading) => ({
+    text: heading,
+    href: `#${heading.replace(/\s+/g, "-").toLowerCase()}`,
+    id: `toc-${heading.replace(/\s+/g, "-").toLowerCase()}`,
+}));
+---
+
+<aside>
+    {
+        headingsData.map((heading) => (
+            <a href={heading.href} class="flex" id={heading.id}>
+                <div class="line" />
+                <p>{heading.text}</p>
+            </a>
+        ))
+    }
+</aside>
+
+<style>
+    aside {
+        display: none;
+    }
+
+    @media (min-width: 60rem) {
+        aside {
+            display: unset;
+            position: sticky;
+            top: 8.5rem;
+        }
+
+        a[id*="toc-"] {
+            opacity: 0.5;
+
+            .line {
+                position: relative;
+                display: block;
+                visibility: hidden;
+            }
+
+            p {
+                display: block;
+                flex-shrink: 0;
+                max-width: 10rem;
+                text-align: right;
+                font-size: var(--fs-p);
+                font-family: var(--ff-quicksand);
+                font-weight: var(--fw-light);
+            }
+
+            &.flex {
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+                opacity: 0.5;
+            }
+
+            &.active {
+                opacity: 1;
+
+                .line {
+                    visibility: visible;
+                    content: " ";
+                    width: 100%;
+                    background: var(--clr-text);
+                    height: 0.5px;
+                    border-radius: 0.5px;
+                }
+            }
+        }
+    }
+</style>

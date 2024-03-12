@@ -1,5 +1,29 @@
 ---
-import SocialLinks from "@components/molecules/SocialLinks.astro";
+import SocialLink from "@components/atoms/SocialLink.astro";
+import iconGithub from "@assets/icons/github.svg?raw";
+import iconLinkedin from "@assets/icons/linkedin.svg?raw";
+import iconInstagram from "@assets/icons/instagram.svg?raw";
+
+const socialLinks = [
+    {
+        name: "GitHub",
+        url: "github.com",
+        username: "limisie",
+        icon: iconGithub,
+    },
+    {
+        name: "LinkedIn",
+        url: "linkedin.com",
+        username: "limisie",
+        icon: iconLinkedin,
+    },
+    {
+        name: "Instagram",
+        url: "instagram.com",
+        username: "yajfuy",
+        icon: iconInstagram,
+    },
+];
 ---
 
 <footer>
@@ -8,9 +32,20 @@ import SocialLinks from "@components/molecules/SocialLinks.astro";
         <a href="mailto:k.limisiewicz@gmail.com">k.limisiewicz@gmail.com</a>
         <a href="tel:+48507087555">+48 507 087 555</a>
 
-        <div class="flex">
-            <p>Copyright 2024 © Kaja Limisiewicz. All right reserved</p>
-            <SocialLinks />
+        <div id="details" class="flex">
+            <p class="light-font">Copyright 2024 &copy; Kaja Limisiewicz. All right reserved</p>
+            <div id="social-links" class="flex">
+                {
+                    socialLinks.map((link) => (
+                        <SocialLink
+                            name={link.name}
+                            url={link.url}
+                            username={link.username}
+                            icon={link.icon}
+                        />
+                    ))
+                }
+            </div>
         </div>
     </div>
 </footer>
@@ -33,21 +68,20 @@ import SocialLinks from "@components/molecules/SocialLinks.astro";
         }
     }
 
-    .flex {
+    #social-links {
+        align-items: end;
+        justify-content: end;
+    }
+
+    #details {
         flex-direction: column-reverse;
         align-items: start;
         margin-top: 2rem;
-
-        p {
-            font-size: var(--fs-small);
-            color: var(--clr-text);
-            opacity: 0.3;
-        }
     }
 
     @media (min-width: 40rem) {
-        .flex {
-            flex-direction: row;
+        #details {
+            flex-direction: unset;
             align-items: end;
             margin-top: 1.5rem;
         }

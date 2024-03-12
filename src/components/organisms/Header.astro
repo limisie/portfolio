@@ -3,20 +3,30 @@ import { Image } from "astro:assets";
 
 import BurgerMenu from "@components/atoms/BurgerMenu.astro";
 import ThemeSwitcher from "@components/atoms/ThemeSwitcher.astro";
-import LinkUnderline from "@components/atoms/LinkUnderline.astro";
+import NavLink from "@components/atoms/NavLink.astro";
+
+const navLinks = [
+    { path: "/", text: "Home" },
+    { path: "/portfolio", text: "Portfolio" },
+    { path: "/blog", text: "Blog" },
+    { path: "/contact", text: "Contact" },
+];
 ---
 
 <header class="flex">
-    <a href="/">
+    <a href="/" class="logo">
         <Image src="/favicon.svg" alt="limi logo" width={48} height={48} />
     </a>
 
     <nav class="hidden">
         <ul class="flex">
-            <li><LinkUnderline href="/">Home</LinkUnderline></li>
-            <li><LinkUnderline href="/portfolio">Portfolio</LinkUnderline></li>
-            <li><LinkUnderline href="/blog">Blog</LinkUnderline></li>
-            <li><LinkUnderline href="/contact">Contact</LinkUnderline></li>
+            {
+                navLinks.map((link) => (
+                    <li>
+                        <NavLink href={link.path} text={link.text} />
+                    </li>
+                ))
+            }
             <li>
                 <ThemeSwitcher {...Astro.props} />
             </li>
@@ -50,13 +60,19 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
             width: 0;
         }
 
+        .logo {
+            width: 3rem;
+            height: 3rem;
+            flex-shrink: 0;
+        }
+
         ul {
             list-style: none;
             padding: 0;
             margin: 0;
             min-height: var(--nav-height);
 
-            gap: calc(2 * var(--spacer));
+            gap: calc(1.2 * var(--spacer));
         }
 
         &.unfolded {
@@ -70,9 +86,9 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
                 -webkit-backdrop-filter 0.5s ease-out;
 
             ul {
-                padding-top: 5rem;
-
+                margin-top: calc(var(--nav-height) + var(--spacer));
                 flex-direction: column;
+                gap: 2rem;
             }
         }
     }
@@ -102,35 +118,5 @@ import LinkUnderline from "@components/atoms/LinkUnderline.astro";
 </style>
 
 <script>
-    const header = document.querySelector("header");
-    const nav = document.querySelector("nav");
-    const hamburgerButton = document.querySelector("#menuButton");
-
-    function toggleNav(animate = true) {
-        if (
-            window.scrollY < 50 &&
-            window.matchMedia("(min-width: 40rem)").matches
-        ) {
-            if (animate) {
-                nav.classList.add("animated");
-            }
-            nav.classList.remove("hidden");
-            hamburgerButton.classList.add("hidden");
-            setTimeout(() => {
-                nav.classList.remove("animated");
-            }, 200);
-        } else if (
-            window.scrollY >= 50 ||
-            !window.matchMedia("(min-width: 40rem)").matches
-        ) {
-            if (!header.classList.contains("unfolded")) {
-                nav.classList.add("hidden");
-                hamburgerButton.classList.remove("hidden");
-            }
-        }
-    }
-
-    toggleNav(false);
-    window.addEventListener("scroll", () => toggleNav());
-    window.addEventListener("resize", () => toggleNav());
+    import "../../scripts/nav.js";
 </script>

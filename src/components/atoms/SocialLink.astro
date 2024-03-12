@@ -1,0 +1,28 @@
+---
+const { url, platform, username, icon, ...rest } = Astro.props;
+---
+
+<a href=`https://${url}/${username}/` {...rest}>
+    <Fragment set:html={icon}></Fragment>
+</a>
+
+<style is:inline>
+    svg.social-link {
+        width: 2rem;
+        height: 2rem;
+
+        .background {
+            fill: var(--clr-text);
+        }
+
+        .foreground {
+            fill: var(--clr-surface);
+        }
+
+        &:hover {
+            .background {
+                opacity: 0.5;
+            }
+        }
+    }
+</style>

@@ -1,0 +1,41 @@
+---
+import Card from "@components/molecules/Card.astro";
+import IconLink from "@components/atoms/IconLink.astro";
+import rightArrow from "@assets/icons/right-arrow.svg?raw";
+
+const { listHeader, list, href = "/" } = Astro.props;
+list.length = 4;
+---
+
+<div class="container">
+    <div class="header flex">
+        <h2>{listHeader}</h2>
+        <IconLink href={href} text="See all" iconRight={rightArrow} />
+    </div>
+    <div class="list flex equal">
+        {
+            list.map((item) => {
+                return <Card {...item} />;
+            })
+        }
+    </div>
+</div>
+
+<style>
+    .header {
+        align-items: end;
+        margin-bottom: var(--spacer);
+    }
+
+    .list {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media (min-width: 40rem) {
+        .list {
+            flex-direction: unset;
+            gap: 1rem;
+        }
+    }
+</style>

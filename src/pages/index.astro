@@ -1,14 +1,22 @@
 ---
 import About from "@components/organisms/About.astro";
 import Hero from "@components/organisms/Hero.astro";
-import MyWork from "@components/organisms/MyWork.astro";
+import CardList from "@components/organisms/CardList.astro";
 import Layout from "@layouts/Layout.astro";
+
+// #TODO fetch portfolio projects
 ---
 
 <Layout>
-	<main>
-		<Hero />
+	<Hero />
+	<section>
 		<About />
-		<MyWork />
-	</main>
+	</section>
+	<section>
+		<CardList
+			listHeader="My work"
+			href="/portfolio"
+			list={[0, 0, 0, 0, 0]} 
+		/>
+	</section>
 </Layout>

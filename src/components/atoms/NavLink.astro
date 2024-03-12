@@ -1,17 +1,15 @@
 ---
-const { href } = Astro.props;
+const { href, text, ...rest } = Astro.props;
 
-const activeLink = href == Astro.url.pathname ? "active" : "";
+const isActive = href.split("/")[1] == Astro.url.pathname.split("/")[1];
 ---
 
-<a href={href} class={activeLink}><slot /></a>
+<a href={href} class:list={[{ active: isActive }]} {...rest}>{text}</a>
 
 <style>
     a {
-        text-decoration: none;
-        color: inherit;
-        font-size: var(--fs-medium);
-        
+        font-size: var(--fs-h4);
+
         &.active,
         &:hover {
             color: var(--clr-primary);
@@ -26,7 +24,7 @@ const activeLink = href == Astro.url.pathname ? "active" : "";
             content: "";
             display: block;
             width: 0;
-            height: 2px;
+            height: 1.5px;
             background-color: var(--clr-text);
             transition: width 0.3s ease-out;
         }
