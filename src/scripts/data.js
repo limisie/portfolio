@@ -13,6 +13,14 @@ const allArticlesRequest = {
             tags
             content {
                 value
+                blocks {
+                    id
+                    image {
+                      alt
+                      url
+                      title
+                    }
+                  }
             }
         }
     }`,

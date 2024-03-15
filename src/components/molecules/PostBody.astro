@@ -1,10 +1,26 @@
 ---
 import { render } from "datocms-structured-text-to-html-string";
 const { content } = Astro.props;
+
+const options = {
+    renderBlock({ record, adapter: { renderNode } }) {
+        return renderNode(
+            "div",
+            {},
+            renderNode("img", {
+                src: record.image.url,
+                alt: record.image.alt,
+            }),
+            renderNode("span", {}, record.image.title),
+        );
+    },
+};
+
+const renderedHTML = render(content, options);
 ---
 
 <article class="flow-content">
-    <Fragment set:html={render(content)} />
+    <Fragment set:html={renderedHTML} />
 </article>
 
 <style>
@@ -13,7 +29,7 @@ const { content } = Astro.props;
             font-family: var(--ff-quicksand);
             font-size: var(--fs-h3);
         }
-        
+
         p {
             text-align: justify;
         }
