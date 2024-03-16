@@ -8,10 +8,10 @@ import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
 import PostContent from "@components/molecules/PostContent.astro";
 import PostHeader from "@components/molecules/PostHeader.astro";
-import { getAllArticles } from "@scripts/data.js";
+import { getAllArticlesWithContent } from "@scripts/data.js";
 
 export async function getStaticPaths() {
-    const articles = await getAllArticles();
+    const articles = await getAllArticlesWithContent();
 
     return articles.map((article) => {
         return {

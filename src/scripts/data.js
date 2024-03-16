@@ -11,6 +11,23 @@ const allArticlesRequest = {
                 url
             }
             tags
+        }
+    }`,
+}
+
+const allArticlesWithContentRequest = {
+    query: `{
+        allArticles {
+            id
+            title
+            slug
+            excerpt
+            publishDate
+            coverImage {
+                alt
+                url
+            }
+            tags
             content {
                 value
                 blocks {
@@ -43,5 +60,10 @@ async function postRequest(request) {
 
 export async function getAllArticles() {
     const response = await postRequest(allArticlesRequest);
+    return response.allArticles
+}
+
+export async function getAllArticlesWithContent() {
+    const response = await postRequest(allArticlesWithContentRequest);
     return response.allArticles
 }
