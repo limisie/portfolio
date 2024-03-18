@@ -1,0 +1,57 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getAllProjectsWithContent } from "@scripts/data.js";
+import { getDateYear } from "@scripts/utils.js";
+import Image from "astro/components/Image.astro";
+
+export async function getStaticPaths() {
+    const projects = await getAllProjectsWithContent();
+
+    return projects.map((project) => {
+        return {
+            params: { project: project.slug },
+            props: {
+                roles: project.roles,
+                technologies: project.technologies,
+                startDate: project.startDate,
+                endDate: project.endDate,
+                title: project.title,
+                description: project.description,
+                images: project.screenshots,
+            },
+        };
+    });
+}
+
+const { project } = Astro.params;
+const { roles, title, startDate, endDate, technologies, description, images } =
+    Astro.props;
+
+const dateString = endDate
+    ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
+    : `${getDateYear(startDate)}`;
+---
+
+<Layout title={title + " | Kaja Limisiewicz's Portfolio"}>
+    <section>
+        <div class="container">
+            <p>{roles}</p>
+            <p>{title}</p>
+            <p>{dateString}</p>
+            <p>{description}</p>
+            <p>{technologies}</p>
+            {
+                images.map((image) => {
+                    return (
+                        <Image
+                            src={image.url}
+                            alt={image.alt}
+                            width={100}
+                            height={100}
+                        />
+                    );
+                })
+            }
+        </div>
+    </section>
+</Layout>

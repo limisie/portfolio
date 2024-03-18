@@ -30,6 +30,11 @@ class OrdinalFormat {
     }
 }
 
+export function getDateYear(dateString, locale = "en") {
+    const date = new Date(dateString);
+    return date.toLocaleString(locale, { year: 'numeric' });
+}
+
 export function getDateWithOrdinalSuffix(dateString, locale = "en") {
     const date = new Date(dateString);
     const day = date.toLocaleString(locale, { day: 'numeric' });

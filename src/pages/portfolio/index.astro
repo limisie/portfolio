@@ -1,11 +1,25 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import ProjectList from "@components/organisms/ProjectList.astro";
+import { getAllProjects } from "@scripts/data.js";
+
+const projects = await getAllProjects();
+const categories = [...new Set(projects.map((project) => project.category))];
+
+const projectsByCategory = categories.map((category) => {
+    return {
+        category: category,
+        projects: projects.filter((project) => project.category == category),
+    };
+});
 ---
 
 <Layout title="Portfolio | Kaja Limisiewicz">
     <section class="header">
-        <div class="container">
-            <h1>Portfolio</h1>
-        </div>
+        {
+            projectsByCategory.map(({ category, projects }) => {
+                return <ProjectList category={category} projects={projects} />;
+            })
+        }
     </section>
 </Layout>

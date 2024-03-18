@@ -1,0 +1,128 @@
+---
+import { getDateYear } from "@scripts/utils";
+import { Image } from "astro:assets";
+
+const {
+    project: { title, excerpt, startDate, endDate, slug, coverImage },
+} = Astro.props;
+
+const dateString = endDate
+    ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
+    : `${getDateYear(startDate)}`;
+---
+
+<div class="card">
+    <a href=`/portfolio/${slug}`></a>
+    <div class="img-wrapper">
+        {
+            coverImage ? (
+                <Image
+                    src={coverImage.url}
+                    alt={coverImage.alt}
+                    height={100}
+                    width={100}
+                />
+            ) : (
+                <div class="placeholder-background" />
+            )
+        }
+    </div>
+    <div class="details flex">
+        <div class="flow-content">
+            <h4>{title}</h4>
+            <p class="light-font">{excerpt}</p>
+        </div>
+        <p class="light-font">{dateString}</p>
+    </div>
+</div>
+
+<style>
+    .card {
+        aspect-ratio: 1.618/1;
+        position: relative;
+
+        --shadow: black;
+        --shadow-medium: 0.3px 0.5px 0.7px hsl(var(--shadow) / 0.36),
+            0.8px 1.6px 2px -0.8px hsl(var(--shadow) / 0.36),
+            2.1px 4.1px 5.2px -1.7px hsl(var(--shadow) / 0.36),
+            5px 10px 12.6px -2.5px hsl(var(--shadow) / 0.36);
+
+        mark {
+            padding: 0.5rem;
+            position: absolute;
+            background: white;
+            top: 0;
+            left: 0;
+            box-shadow: var(--shadow-medium);
+            z-index: 1;
+        }
+
+        .img-wrapper {
+            overflow: hidden;
+            height: 100%;
+            opacity: unset;
+            filter: unset;
+
+            img {
+                opacity: 0.2;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        .details {
+            position: absolute;
+            inset: var(--spacer);
+            flex-direction: column;
+            align-items: start;
+
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        &:hover {
+            img {
+                transform: scale(105%);
+                opacity: 1;
+            }
+
+            .details {
+                opacity: 0;
+            }
+        }
+    }
+
+    .flow-content {
+        --flow-space: 0.5rem;
+    }
+</style>
+
+<script>
+    const setCursorText = (e) => {
+        const card = e.target;
+        const cardTitle = card.querySelector("h4").innerText;
+        const textCursorElement = document.createElement("mark");
+        textCursorElement.innerText = cardTitle;
+        card.appendChild(textCursorElement);
+
+        card.addEventListener("mousemove", translateElement(textCursorElement));
+    };
+
+    const clearCursor = (e) => {
+        const card = e.target;
+        const textCursorElement = card.querySelector("mark");
+        textCursorElement.remove();
+    };
+
+    const translateElement = (element) => {
+        const translate = (event) => {
+            element.style.transform = `translate3d(${event.layerX + 20}px, ${event.layerY - 10}px, 0)`;
+        };
+        return translate;
+    };
+
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+        card.addEventListener("mouseenter", setCursorText);
+        card.addEventListener("mouseleave", clearCursor);
+    });
+</script>

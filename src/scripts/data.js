@@ -43,6 +43,45 @@ const allArticlesWithContentRequest = {
     }`,
 }
 
+const allProjectsRequest = {
+    query: `{
+        allProjects {
+            category
+            id
+            slug
+            title
+            excerpt
+            startDate
+            endDate
+            coverImage {
+                alt
+                url
+              }
+          }
+      }`,
+}
+
+const allProjectsRequestWithContent = {
+    query: `{
+        allProjects {
+            category
+            id
+            slug
+            title
+            startDate
+            endDate
+            description
+            roles
+            technologies
+            screenshots {
+              alt
+              url
+              title
+            }
+          }
+      }`,
+}
+
 async function postRequest(request) {
     const response = await fetch("https://graphql.datocms.com/", {
         method: "POST",
@@ -56,6 +95,16 @@ async function postRequest(request) {
 
     const parsedResponse = await response.json();
     return parsedResponse.data
+}
+
+export async function getAllProjects() {
+    const response = await postRequest(allProjectsRequest);
+    return response.allProjects
+}
+
+export async function getAllProjectsWithContent() {
+    const response = await postRequest(allProjectsRequestWithContent);
+    return response.allProjects
 }
 
 export async function getAllArticles() {
