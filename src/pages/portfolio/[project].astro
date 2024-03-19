@@ -1,8 +1,9 @@
 ---
+import { Markdown } from "astro-remote";
+import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import { getAllProjectsWithContent } from "@scripts/data.js";
 import { getDateYear } from "@scripts/utils.js";
-import Image from "astro/components/Image.astro";
 
 export async function getStaticPaths() {
     const projects = await getAllProjectsWithContent();
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
             params: { project: project.slug },
             props: {
                 roles: project.roles,
+                category: project.category,
                 technologies: project.technologies,
                 startDate: project.startDate,
                 endDate: project.endDate,
@@ -23,10 +25,18 @@ export async function getStaticPaths() {
     });
 }
 
-const { project } = Astro.params;
-const { roles, title, startDate, endDate, technologies, description, images } =
-    Astro.props;
+const {
+    roles,
+    category,
+    title,
+    startDate,
+    endDate,
+    technologies,
+    description,
+    images,
+} = Astro.props;
 
+console.log(description);
 const dateString = endDate
     ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
     : `${getDateYear(startDate)}`;
@@ -34,12 +44,34 @@ const dateString = endDate
 
 <Layout title={title + " | Kaja Limisiewicz's Portfolio"}>
     <section>
-        <div class="container">
-            <p>{roles}</p>
-            <p>{title}</p>
-            <p>{dateString}</p>
-            <p>{description}</p>
-            <p>{technologies}</p>
+        <div class="container grid">
+            <div id="category">
+                <p class="light-font">{category}</p>
+            </div>
+            <div id="title">
+                <h1>{title}</h1>
+            </div>
+            <div id="roles">
+                <p class="light-font">My roles</p>
+                <ul>
+                    {roles.map((role) => <li>{role}</li>)}
+                </ul>
+            </div>
+            <div id="technologies">
+                <p class="light-font">Used technologies</p>
+                <ul>
+                    {technologies.map((technology) => <li>{technology}</li>)}
+                </ul>
+            </div>
+            <div id="date">
+                <p id="date-label" class="light-font">Year</p>
+                <p>{dateString}</p>
+            </div>
+            <div id="description" class="flow-content">
+                <Markdown content={description} />
+            </div>
+        </div>
+        <div class="container flow-content">
             {
                 images.map((image) => {
                     return (
@@ -55,3 +87,97 @@ const dateString = endDate
         </div>
     </section>
 </Layout>
+
+<style>
+    h1 {
+        font-size: var(--fs-h2);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto auto;
+
+        grid-template-areas:
+            "category date"
+            "title title"
+            "description description"
+            "roles technologies";
+        gap: 1rem;
+        margin-bottom: var(--spacer);
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        div[id] > p {
+            margin-bottom: 0.3rem;
+        }
+
+        #category {
+            grid-area: category;
+            align-self: center;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+
+        #title {
+            grid-area: title;
+        }
+
+        #roles {
+            grid-area: roles;
+        }
+
+        #technologies {
+            grid-area: technologies;
+        }
+
+        #date {
+            grid-area: date;
+            text-align: end;
+            align-self: center;
+
+            #date-label {
+                display: none;
+            }
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        #description {
+            grid-area: description;
+            text-align: justify;
+            text-indent: 2rem;
+
+            --flow-space: 0.5rem;
+        }
+    }
+
+    @media (min-width: 60rem) {
+        .grid {
+            grid-template-columns: 1fr 1fr 50%;
+
+            grid-template-areas:
+                "category category ."
+                "title title description"
+                "roles technologies description"
+                "date technologies description"
+                ". . description";
+
+            #date {
+                text-align: unset;
+                align-self: end;
+
+                #date-label {
+                    display: unset;
+                }
+            }
+        }
+    }
+</style>

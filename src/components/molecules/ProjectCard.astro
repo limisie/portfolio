@@ -29,10 +29,10 @@ const dateString = endDate
     </div>
     <div class="details flex">
         <div class="flow-content">
-            <h4>{title}</h4>
-            <p class="light-font">{excerpt}</p>
+            <h4 class=""><span>{title}</span></h4>
+            <p class="light-font"><span>{excerpt}</span></p>
         </div>
-        <p class="light-font">{dateString}</p>
+        <p class="light-font"><span>{dateString}</span></p>
     </div>
 </div>
 
@@ -41,14 +41,31 @@ const dateString = endDate
         aspect-ratio: 1.618/1;
         position: relative;
 
-        mark {
-            padding: 0.5rem;
-            position: absolute;
+        span {
+            padding: 0.2rem;
             background: white;
+            line-height: 1.4;
+        }
+
+        .light-font {
+            opacity: 1;
+        }
+
+        .cursor-text {
+            position: absolute;
             top: 0;
             left: 0;
-            box-shadow: var(--box-shadow);
             z-index: 1;
+            box-shadow: var(--box-shadow);
+        }
+
+        .details {
+            position: absolute;
+            inset: 1rem;
+            flex-direction: column;
+            align-items: start;
+
+            transition: opacity 0.3s ease-in-out;
         }
 
         .img-wrapper {
@@ -56,20 +73,12 @@ const dateString = endDate
             height: 100%;
             opacity: unset;
             filter: unset;
+            background: var(--clr-background);
 
             img {
                 opacity: 0.2;
                 transition: all 0.3s ease-in-out;
             }
-        }
-
-        .details {
-            position: absolute;
-            inset: var(--spacer);
-            flex-direction: column;
-            align-items: start;
-
-            transition: opacity 0.3s ease-in-out;
         }
 
         &:hover {
@@ -93,8 +102,9 @@ const dateString = endDate
     const setCursorText = (e) => {
         const card = e.target;
         const cardTitle = card.querySelector("h4").innerText;
-        const textCursorElement = document.createElement("mark");
+        const textCursorElement = document.createElement("span");
         textCursorElement.innerText = cardTitle;
+        textCursorElement.classList.add("cursor-text");
         card.appendChild(textCursorElement);
 
         card.addEventListener("mousemove", translateElement(textCursorElement));
@@ -102,7 +112,7 @@ const dateString = endDate
 
     const clearCursor = (e) => {
         const card = e.target;
-        const textCursorElement = card.querySelector("mark");
+        const textCursorElement = card.querySelector(".cursor-text");
         textCursorElement.remove();
     };
 
