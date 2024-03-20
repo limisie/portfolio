@@ -62,3 +62,19 @@ export function getHeadingsFromDastDocument(document: StructuredText, headingLev
     }
     return headings
 }
+
+export function prioritizeCategoryProjectsSort(category) {
+    function compare(a, b) {
+        if (a.category == category) {
+            return -1;
+        }
+        return 0;
+    }
+    return compare
+}
+
+export function getSortedAndFilteredProjects(projects, projectTitleToOmit, prioritizedCategory) {
+    const filtered = projects.filter((project) => project.title != projectTitleToOmit)
+    const sorted = filtered.sort(prioritizeCategoryProjectsSort(prioritizedCategory))
+    return sorted
+}

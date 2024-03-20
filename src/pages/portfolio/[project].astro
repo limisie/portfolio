@@ -4,9 +4,7 @@ import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
 import { getAllProjectsWithContent, getAllProjects } from "@scripts/data.js";
-import { getDateYear } from "@scripts/utils.js";
-
-const projects = await getAllProjects();
+import { getDateYear, getSortedAndFilteredProjects } from "@scripts/utils.js";
 
 export async function getStaticPaths() {
     const projects = await getAllProjectsWithContent();
@@ -42,6 +40,14 @@ const {
 const dateString = endDate
     ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
     : `${getDateYear(startDate)}`;
+
+const projects = await getAllProjects();
+const suggestedOtherProjects = getSortedAndFilteredProjects(
+    projects,
+    title,
+    category,
+);
+console.log(suggestedOtherProjects);
 ---
 
 <Layout title={title + " | Kaja Limisiewicz's Portfolio"}>
@@ -88,16 +94,18 @@ const dateString = endDate
             }
         </div>
     </section>
-    <CardList
-        list={projects}
-        listHeader="See my other projects"
-        href="/portfolio"
-    />
+    <section>
+        <CardList
+            list={suggestedOtherProjects}
+            listHeader="See my other projects"
+            href="/portfolio"
+        />
+    </section>
 </Layout>
 
 <style>
     h1 {
-        font-size: var(--fs-h2);
+        font-size: var(--fs-h3);
     }
 
     .grid {

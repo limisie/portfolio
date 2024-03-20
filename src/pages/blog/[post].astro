@@ -53,6 +53,10 @@ const { tags, title, publishDate, body, image } = Astro.props;
         </div>
     </section>
     <section>
-        <CardList href="/blog" listHeader="Other posts" list={articles} />
+        <CardList
+            href="/blog"
+            listHeader="Other posts"
+            list={articles.filter((article) => article.title != title)}
+        />
     </section>
 </Layout>
