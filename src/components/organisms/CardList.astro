@@ -15,7 +15,7 @@ list.length = 4;
     <div class="list flex equal">
         {
             list.map((item) => {
-                return <Card {...item} />;
+                return <Card href={href} {...item} />;
             })
         }
     </div>
@@ -30,6 +30,7 @@ list.length = 4;
     .list {
         flex-direction: column;
         gap: 2rem;
+        align-items: start;
     }
 
     @media (min-width: 40rem) {

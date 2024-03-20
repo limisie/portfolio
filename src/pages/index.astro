@@ -4,7 +4,9 @@ import Hero from "@components/organisms/Hero.astro";
 import CardList from "@components/organisms/CardList.astro";
 import Layout from "@layouts/Layout.astro";
 
-// #TODO fetch portfolio projects
+import { getAllProjects } from "@scripts/data.js";
+
+const projects = await getAllProjects();
 ---
 
 <Layout>
@@ -13,10 +15,6 @@ import Layout from "@layouts/Layout.astro";
 		<About />
 	</section>
 	<section>
-		<CardList
-			listHeader="My work"
-			href="/portfolio"
-			list={[0, 0, 0, 0, 0]} 
-		/>
+		<CardList listHeader="My work" href="/portfolio" list={projects} />
 	</section>
 </Layout>

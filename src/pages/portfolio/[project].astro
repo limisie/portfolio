@@ -2,8 +2,11 @@
 import { Markdown } from "astro-remote";
 import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
-import { getAllProjectsWithContent } from "@scripts/data.js";
+import CardList from "@components/organisms/CardList.astro";
+import { getAllProjectsWithContent, getAllProjects } from "@scripts/data.js";
 import { getDateYear } from "@scripts/utils.js";
+
+const projects = await getAllProjects();
 
 export async function getStaticPaths() {
     const projects = await getAllProjectsWithContent();
@@ -36,7 +39,6 @@ const {
     images,
 } = Astro.props;
 
-console.log(description);
 const dateString = endDate
     ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
     : `${getDateYear(startDate)}`;
@@ -86,6 +88,11 @@ const dateString = endDate
             }
         </div>
     </section>
+    <CardList
+        list={projects}
+        listHeader="See my other projects"
+        href="/portfolio"
+    />
 </Layout>
 
 <style>

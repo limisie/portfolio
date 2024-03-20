@@ -1,20 +1,20 @@
 ---
 import { Image } from "astro:assets";
 
-const {
-    url = "/portfolio",
-    image,
-    title = "Project title",
-    description = "Short text describing a project and my roles.",
-} = Astro.props;
+const { href, slug, title, excerpt, coverImage } = Astro.props;
 ---
 
 <div class="card">
-    <a href={url}></a>
+    <a href=`${href}/${slug}`></a>
     <div class="img-wrapper">
         {
-            image ? (
-                <Image src={image} alt="" />
+            coverImage ? (
+                <Image
+                    src={coverImage.url}
+                    alt={coverImage.alt}
+                    width={100}
+                    height={100}
+                />
             ) : (
                 <div class="placeholder-background" />
             )
@@ -22,7 +22,7 @@ const {
     </div>
 
     <h4>{title}</h4>
-    <p>{description}</p>
+    <p>{excerpt}</p>
 </div>
 
 <style>
@@ -32,6 +32,7 @@ const {
 
         p {
             font-size: var(--fs-small);
+            text-align: justify;
         }
     }
 
