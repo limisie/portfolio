@@ -278,13 +278,18 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         }
         
         .img-wrapper {
-            filter: grayscale(80%);
-            opacity: 0.6;
-            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+
+            img {
+                filter: grayscale(80%);
+                opacity: 0.6;
+                transition: all 0.3s ease-in-out;
+            }
         }
 
         &:hover {
-            .img-wrapper {
+            .img-wrapper img {
+                transform: scale(105%);
                 filter: grayscale(0%);
                 opacity: 1;
             }

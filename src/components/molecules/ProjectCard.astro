@@ -42,8 +42,9 @@ const dateString = endDate
         position: relative;
 
         span {
-            padding: 0.2rem;
-            background: white;
+            padding: 0.1rem;
+            background: var(--white);
+            color: var(--darkGrey);
             line-height: 1.4;
         }
 
@@ -64,37 +65,21 @@ const dateString = endDate
             inset: 1rem;
             flex-direction: column;
             align-items: start;
+            --flow-space: 0.5rem;
 
             transition: opacity 0.3s ease-in-out;
         }
 
         .img-wrapper {
-            overflow: hidden;
             height: 100%;
-            opacity: unset;
-            filter: unset;
             background: var(--clr-background);
-
-            img {
-                opacity: 0.2;
-                transition: all 0.3s ease-in-out;
-            }
         }
 
         &:hover {
-            img {
-                transform: scale(105%);
-                opacity: 1;
-            }
-
             .details {
                 opacity: 0;
             }
         }
-    }
-
-    .flow-content {
-        --flow-space: 0.5rem;
     }
 </style>
 

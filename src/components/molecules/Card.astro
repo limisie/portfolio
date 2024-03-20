@@ -22,7 +22,7 @@ const { href, slug, title, excerpt, coverImage } = Astro.props;
     </div>
 
     <h4>{title}</h4>
-    <p>{excerpt}</p>
+    <p class="excerpt">{excerpt}</p>
 </div>
 
 <style>
@@ -30,9 +30,13 @@ const { href, slug, title, excerpt, coverImage } = Astro.props;
         --flow-space: calc(0.1 * var(--spacer));
         width: 100%;
 
-        p {
+        .excerpt {
             font-size: var(--fs-small);
-            text-align: justify;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
         }
     }
 
