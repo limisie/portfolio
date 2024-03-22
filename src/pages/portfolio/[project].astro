@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
 import { getAllProjectsWithContent, getAllProjects } from "@scripts/data.js";
-import { getDateYear, getSortedAndFilteredProjects } from "@scripts/utils.js";
+import { getDateYear, sortByCategory, slugify } from "@scripts/utils.js";
 
 export async function getStaticPaths() {
     const projects = await getAllProjectsWithContent();
@@ -42,19 +42,18 @@ const dateString = endDate
     : `${getDateYear(startDate)}`;
 
 const projects = await getAllProjects();
-const suggestedOtherProjects = getSortedAndFilteredProjects(
-    projects,
-    title,
-    category,
-);
-console.log(suggestedOtherProjects);
+const suggestedProjects = projects
+    .filter((project) => project.title != title)
+    .sort(sortByCategory(category));
 ---
 
 <Layout title={title + " | Kaja Limisiewicz's Portfolio"}>
     <section>
         <div class="container grid">
             <div id="category">
-                <p class="light-font">{category}</p>
+                <a class="light-font" href=`/portfolio/${slugify(category)}`
+                    >{category}</a
+                >
             </div>
             <div id="title">
                 <h1>{title}</h1>
@@ -96,7 +95,7 @@ console.log(suggestedOtherProjects);
     </section>
     <section>
         <CardList
-            list={suggestedOtherProjects}
+            list={suggestedProjects}
             listHeader="See my other projects"
             href="/portfolio"
         />

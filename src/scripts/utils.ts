@@ -63,18 +63,28 @@ export function getHeadingsFromDastDocument(document: StructuredText, headingLev
     return headings
 }
 
-export function prioritizeCategoryProjectsSort(category) {
-    function compare(a, b) {
-        if (a.category == category) {
-            return -1;
+export function sortByCategory(category, prioritize = true) {
+    function compareProjects(projectA, projectB) {
+        const isProjectACategory = projectA.category === category;
+        const isProjectBCategory = projectB.category === category;
+
+        if (isProjectACategory) {
+            return prioritize ? -1 : 1;
+        } else if (isProjectBCategory) {
+            return prioritize ? 1 : -1;
         }
         return 0;
     }
-    return compare
+    return compareProjects
 }
 
-export function getSortedAndFilteredProjects(projects, projectTitleToOmit, prioritizedCategory) {
-    const filtered = projects.filter((project) => project.title != projectTitleToOmit)
-    const sorted = filtered.sort(prioritizeCategoryProjectsSort(prioritizedCategory))
-    return sorted
+export function slugify(str) {
+    return String(str)
+        .normalize('NFKD') // split accented characters into their base characters and diacritical marks
+        .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+        .trim() // trim leading or trailing whitespace
+        .toLowerCase() // convert to lowercase
+        .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
+        .replace(/\s+/g, '-') // replace spaces with hyphens
+        .replace(/-+/g, '-'); // remove consecutive hyphens
 }

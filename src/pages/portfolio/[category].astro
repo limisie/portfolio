@@ -1,0 +1,48 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ProjectList from "@components/organisms/ProjectList.astro";
+import CardList from "@components/organisms/CardList.astro";
+import { getAllProjects } from "@scripts/data.js";
+import { slugify } from "@scripts/utils.js";
+
+export async function getStaticPaths() {
+    const projects = await getAllProjects();
+    const categories = [
+        ...new Set(projects.map((project) => project.category)),
+    ];
+
+    return categories.map((category) => {
+        return {
+            params: { category: slugify(category) },
+            props: {
+                category: category,
+                projects: projects.filter(
+                    (project) => project.category == category,
+                ),
+            },
+        };
+    });
+}
+
+const { category } = Astro.params;
+const { projects, category: categoryString } = Astro.props;
+
+const allProjects = await getAllProjects();
+const suggestedProjects = allProjects.filter(
+    (project) => project.category != categoryString,
+);
+---
+
+<Layout title=`Portfolio - ${categoryString} | Kaja Limisiewicz`>
+    <section class="header">
+        <ProjectList category={categoryString} projects={projects} />
+    </section>
+    <section>
+        <CardList
+            list={suggestedProjects}
+            listHeader="See also"
+            href="/portfolio"
+            linkLabel="Other projects"
+        />
+    </section>
+</Layout>
