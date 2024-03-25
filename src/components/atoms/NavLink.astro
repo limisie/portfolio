@@ -12,11 +12,10 @@ const isActive = href.split("/")[1] == Astro.url.pathname.split("/")[1];
 
         &.active,
         &:hover {
-            color: var(--clr-primary);
+            color: var(--clr-text);
 
             &::after {
                 width: 100%;
-                background-color: var(--clr-primary);
             }
         }
 
@@ -25,7 +24,7 @@ const isActive = href.split("/")[1] == Astro.url.pathname.split("/")[1];
             display: block;
             width: 0;
             height: 1.5px;
-            background-color: var(--clr-text);
+            background-color: var(--clr-primary);
             transition: width 0.3s ease-out;
         }
     }
