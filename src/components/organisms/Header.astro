@@ -113,6 +113,10 @@ const navLinks = [
             ul {
                 justify-content: flex-end;
             }
+
+            &:has(nav.hidden) {
+                z-index: 0;
+            }
         }
     }
 </style>
