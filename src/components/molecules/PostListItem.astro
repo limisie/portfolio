@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import TagList from "@components/atoms/TagList.astro";
+import IconLink from "@components/atoms/IconLink.astro";
+import rightArrow from "@assets/icons/right-arrow.svg?raw";
 
 const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
 ---
@@ -28,22 +30,40 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
             <p class="abstract">{excerpt}</p>
         </div>
         <p class="date light-font">{publishDate}</p>
+        <div class="cta">
+            <IconLink
+                href={slug}
+                text="Read full post"
+                iconRight={rightArrow}
+            />
+        </div>
     </div>
 </li>
 
 <style>
+    .card:hover {
+        .cta {
+            opacity: 1;
+            pointer-events: unset;
+        }
+    }
+
     .grid {
         display: grid;
         grid-template-columns: auto;
         grid-template-rows: 8rem auto 1rem;
 
         grid-template-areas:
-            "img"
-            "content"
-            "date";
+            "img img"
+            "content content"
+            "date cta";
 
         margin-bottom: 2rem;
         gap: 1rem;
+    }
+
+    .img-wrapper {
+        grid-area: img;
     }
 
     .flow-content {
@@ -65,18 +85,22 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
         align-self: end;
     }
 
-    .img-wrapper {
-        grid-area: img;
+    .cta {
+        grid-area: cta;
+        justify-self: end;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
     }
 
     @media (min-width: 40rem) {
         .grid {
-            grid-template-columns: 10rem auto;
+            grid-template-columns: 10rem auto auto;
             grid-template-rows: 7rem 2rem;
 
             grid-template-areas:
-                "img content"
-                "img date";
+                "img content content"
+                "img date cta";
         }
     }
 </style>
