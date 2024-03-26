@@ -1,0 +1,89 @@
+---
+const { text } = Astro.props;
+---
+
+<div>
+    <p class="marker">{text}</p>
+</div>
+
+<style>
+    div {
+        display: inline-block;
+    }
+
+    .marker {
+        position: relative;
+        width: fit-content;
+        margin: 0;
+
+        svg {
+            position: absolute;
+            inset-inline: 0;
+            top: -40%;
+            margin-inline: auto;
+        }
+
+        path {
+            stroke-width: 1.5;
+            stroke: var(--clr-primary);
+            fill: none;
+            stroke-linecap: round;
+            stroke-dashoffset: 1000;
+            stroke-dasharray: 1000;
+            transition: stroke-dashoffset 4s ease;
+
+            &.loaded {
+                stroke-dashoffset: 0;
+            }
+        }
+    }
+</style>
+
+<script>
+    const marker = document.querySelector(".marker") as HTMLElement;
+    const width = marker.offsetWidth * 1.2;
+    const height = marker.offsetHeight * 2;
+    const ns = "http://www.w3.org/2000/svg";
+
+    const svgElement = document.createElementNS(ns, "svg");
+    svgElement.style.transform = `scale(${(2 * width) / height}, 1)`;
+    svgElement.setAttribute("width", `${width}`);
+    svgElement.setAttribute("height", `${height}`);
+    svgElement.setAttribute("viewBox", "-1 -1 2 2");
+    marker.appendChild(svgElement);
+
+    const path = document.createElementNS(ns, "path");
+    path.setAttribute("vector-effect", "non-scaling-stroke");
+    path.setAttribute("d", `${circlePath(-0.15, 0.05, 150, 190, 0.05, 0.3)}`);
+    svgElement.appendChild(path);
+
+    addEventListener("load", () => {
+        path.classList.add("loaded");
+    });
+    
+    // https://codepen.io/spencerthayer/pen/nhjwu
+    function circlePath(dr_min, dr_max, θ0_min, θ0_max, dθ_min, dθ_max) {
+        var c = 0.551915024494,
+            β = Math.atan(c),
+            d = Math.sqrt(c * c + 1 * 1),
+            r = 0.9,
+            θ = ((θ0_min + Math.random() * (θ0_max - θ0_min)) * Math.PI) / 180,
+            path = "M";
+
+        path += [r * Math.sin(θ), r * Math.cos(θ)];
+        path += " C" + [d * r * Math.sin(θ + β), d * r * Math.cos(θ + β)];
+
+        for (var i = 0; i < 4; i++) {
+            θ +=
+                (Math.PI / 2) *
+                (1 + dθ_min + Math.random() * (dθ_max - dθ_min));
+            r *= 1 + dr_min + Math.random() * (dr_max - dr_min);
+            path +=
+                " " +
+                (i ? "S" : "") +
+                [d * r * Math.sin(θ - β), d * r * Math.cos(θ - β)];
+            path += " " + [r * Math.sin(θ), r * Math.cos(θ)];
+        }
+        return path;
+    }
+</script>

@@ -1,11 +1,15 @@
 ---
+import CircledText from "@components/atoms/CircledText.astro";
 import HeroBackground from "@components/molecules/HeroBackground.astro";
 ---
 
 <section>
     <div class="container">
         <h1>Jack of all trades master of none</h1>
-        <p>but oftentimes better than a master of <span>one</span></p>
+        <div class="block">
+            <p>but oftentimes better than a master of</p>
+            <CircledText text="one" />
+        </div>
     </div>
     <HeroBackground />
 </section>
@@ -25,28 +29,15 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
         max-width: 16rem;
     }
 
-    p {
-        display: block;
+    .block {
         text-align: end;
         max-width: 10rem;
         margin-left: auto;
         margin-top: var(--spacer);
     }
 
-    span {
-        position: relative;
-
-        &::before {
-            content: "";
-            position: absolute;
-            left: 0.35rem;
-            right: -0.1rem;
-            bottom: -0.25rem;
-            height: 0.4rem;
-            transform: skew(-12deg);
-            background: var(--clr-primary);
-            z-index: -1;
-        }
+    p {
+        display: inline;
     }
 
     @media (min-width: 40rem) {
@@ -67,7 +58,7 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
             max-width: 37rem;
         }
 
-        p {
+        .block {
             max-width: 14rem;
             font-size: var(--fs-medium);
         }
