@@ -6,7 +6,7 @@ const { articles, pageData } = Astro.props;
 ---
 
 <div class:list={["flex", { "vertical-split": pageData }]}>
-    <ul>
+    <ul class="unstyle-list">
         {
             articles.map((article) => (
                 <PostListItem
@@ -27,12 +27,7 @@ const { articles, pageData } = Astro.props;
 
 <style>
     ul {
-        padding: 0;
         margin-top: 2rem;
-
-        li {
-            list-style: none;
-        }
     }
 
     ul + div {

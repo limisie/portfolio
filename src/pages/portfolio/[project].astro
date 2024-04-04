@@ -60,13 +60,13 @@ const suggestedProjects = projects
             </div>
             <div id="roles">
                 <p class="light-font">My roles</p>
-                <ul>
+                <ul class="unstyle-list">
                     {roles.map((role) => <li>{role}</li>)}
                 </ul>
             </div>
             <div id="technologies">
                 <p class="light-font">Used technologies</p>
-                <ul>
+                <ul class="unstyle-list">
                     {technologies.map((technology) => <li>{technology}</li>)}
                 </ul>
             </div>
@@ -119,12 +119,6 @@ const suggestedProjects = projects
         gap: 1rem;
         margin-bottom: var(--spacer);
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
         div[id] > p {
             margin-bottom: 0.3rem;
         }
@@ -167,9 +161,17 @@ const suggestedProjects = projects
         #description {
             grid-area: description;
             text-align: justify;
-            text-indent: 2rem;
 
-            --flow-space: 0.5rem;
+            --flow-space: 0.7rem;
+
+            ul {
+                margin-block: 1.5rem;
+                padding-inline-start: 1rem;
+
+                li {
+                    margin-top: 0.7rem;
+                }
+            }
         }
     }
 

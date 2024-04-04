@@ -19,7 +19,7 @@ const navLinks = [
     </a>
 
     <nav class="hidden">
-        <ul class="flex">
+        <ul class="flex unstyle-list">
             {
                 navLinks.map((link) => (
                     <li>
@@ -67,11 +67,7 @@ const navLinks = [
         }
 
         ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
             min-height: var(--nav-height);
-
             gap: calc(1.2 * var(--spacer));
         }
 
