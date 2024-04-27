@@ -145,7 +145,7 @@ const { theme: cookieTheme } = Astro.props;
     function saveThemeCookie(theme) {
         const d = new Date();
         d.setTime(d.getTime() + 365 * 86400000);
-        document.cookie = `theme=${theme};expires=${d.toUTCString()};SameSite=Strict;`;
+        document.cookie = `theme=${theme};expires=${d.toUTCString()};SameSite=Strict;Path="/"`;
     }
 
     function changeTheme(theme) {
