@@ -51,7 +51,7 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
     .grid {
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: 8rem auto 1rem;
+        grid-template-rows: 8rem auto auto;
 
         grid-template-areas:
             "img img"
@@ -96,7 +96,7 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
     @media (min-width: 40rem) {
         .grid {
             grid-template-columns: 10rem auto auto;
-            grid-template-rows: 7rem 2rem;
+            grid-template-rows: 8rem auto;
 
             grid-template-areas:
                 "img content content"

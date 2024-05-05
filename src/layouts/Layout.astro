@@ -39,6 +39,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         --container-width: 75rem;
         --container-padding: 1rem;
         --nav-height: 3rem;
+        --background-surface-height: 90vw;
 
         --ff-rubik: "Rubik", sans-serif;
         --ff-montserrat: "Montserrat", sans-serif;
@@ -64,6 +65,19 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         --clr-primary: var(--red);
         --clr-secondary: var(--blue);
         --clr-secondary-variant: var(--darkBlue);
+    }
+
+    @media (min-width: 40rem) {
+        :root {
+            --spacer: 2rem;
+            --container-padding: calc(5rem + 2rem);
+            --background-surface-height: 48vh;
+
+            --fs-h1: 3.5rem;
+            --fs-h2: 2.375rem;
+            --fs-h3: 2.25rem;
+            --fs-h4: 1.25rem;
+        }
     }
 
     [data-theme="light"] {
@@ -107,7 +121,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         min-height: 100vh;
         justify-content: space-between;
 
-        background: linear-gradient(180deg, var(--clr-surface) 100vw, var(--clr-background) 100vw);
+        background: linear-gradient(180deg, var(--clr-surface) var(--background-surface-height), var(--clr-background) var(--background-surface-height));
         background-repeat: no-repeat;
     }
 
@@ -115,6 +129,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         font-family: var(--ff-montserrat);
         font-size: var(--fs-h1);
         font-weight: var(--fw-extra-bold);
+        padding-bottom: 1rem;
     }
 
     h2 {
@@ -195,8 +210,6 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
     }
 
     .flex.vertical-split {
-        flex-direction: column;
-        align-items: center;
         --first-split: 80%;
 
         > *:first-child {
@@ -210,33 +223,6 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 
     .flow-content > * + * {
         margin-top: var(--flow-space, var(--spacer));
-    }
-
-    @media (min-width: 40rem) {
-        :root {
-            --spacer: 2rem;
-            --container-padding: calc(5rem + 2rem);
-
-            --fs-h1: 3.5rem;
-            --fs-h2: 2.375rem;
-            --fs-h3: 2.25rem;
-            --fs-h4: 1.25rem;
-        }
-
-        body {
-            background: linear-gradient(180deg, var(--clr-surface) 62vh, var(--clr-background) 62vh);
-        }
-
-        .flex.vertical-split {
-            align-items: end;
-        }
-    }
-
-    @media (min-width: 60rem) {
-        .flex.vertical-split {
-            flex-direction: row;
-            align-items: start;
-        }
     }
 
     .visible {
@@ -289,7 +275,9 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
             img {
                 filter: grayscale(80%);
                 opacity: 0.6;
-                transition: all 0.3s ease-in-out;
+                transition: opacity 0.5s ease-in-out,
+                            transform 0.5s ease-in-out,
+                            filter 0.5s ease-in-out;
             }
         }
 

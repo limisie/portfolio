@@ -14,9 +14,18 @@ const headings = getHeadingsFromDastDocument(content);
 </div>
 
 <style>
-    .flex.vertical-split {
+    .flex {
         --first-split: 72%;
+        flex-direction: column;
+        align-items: center;
         margin-top: var(--spacer);
+    }
+
+    @media (min-width: 60rem) {
+        .flex {
+            flex-direction: row;
+            align-items: start;
+        }
     }
 </style>
 

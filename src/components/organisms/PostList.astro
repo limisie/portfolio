@@ -34,11 +34,26 @@ const { articles, pageData } = Astro.props;
         align-self: unset;
     }
 
+    .flex {
+        flex-direction: column;
+    }
+
+    @media (min-width: 40rem) {
+        .flex {
+            align-items: end;
+        }
+    }
+
     @media (min-width: 60rem) {
         ul + div {
             position: sticky;
             top: calc(var(--spacer) + 12px);
             align-self: flex-start;
+        }
+
+        .flex {
+            flex-direction: row;
+            align-items: start;
         }
     }
 </style>
