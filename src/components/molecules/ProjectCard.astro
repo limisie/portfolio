@@ -67,7 +67,7 @@ const dateString = endDate
             align-items: start;
             --flow-space: 0.5rem;
 
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .img-wrapper {
@@ -82,36 +82,3 @@ const dateString = endDate
         }
     }
 </style>
-
-<script>
-    const setCursorText = (e) => {
-        const card = e.target;
-        const cardTitle = card.querySelector("h4").innerText;
-        const textCursorElement = document.createElement("span");
-        textCursorElement.innerText = cardTitle;
-        textCursorElement.classList.add("cursor-text");
-        card.appendChild(textCursorElement);
-
-        card.addEventListener("mousemove", translateElement(textCursorElement));
-    };
-
-    const clearCursor = (e) => {
-        const card = e.target;
-        const textCursorElement = card.querySelector(".cursor-text");
-        textCursorElement.remove();
-    };
-
-    const translateElement = (element) => {
-        const translate = (event) => {
-            element.style.transform = `translate3d(${event.layerX + 20}px, ${event.layerY - 10}px, 0)`;
-        };
-        return translate;
-    };
-
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach((card) => {
-        card.addEventListener("mouseenter", setCursorText);
-        card.addEventListener("mouseleave", clearCursor);
-    });
-</script>
