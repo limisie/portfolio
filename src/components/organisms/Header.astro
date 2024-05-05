@@ -13,9 +13,14 @@ const navLinks = [
 ];
 ---
 
-<header class="flex">
+<header class="flex" transition:persist>
     <a href="/" class="logo">
-        <Image src="/favicon.svg" alt="round red limi logo" width={48} height={48} />
+        <Image
+            src="/favicon.svg"
+            alt="round red limi logo"
+            width={48}
+            height={48}
+        />
     </a>
 
     <nav class="hidden">

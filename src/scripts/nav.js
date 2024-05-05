@@ -1,10 +1,9 @@
-const body = document.querySelector("body");
 const header = document.querySelector("header");
 const nav = document.querySelector("nav");
 const burgerButton = document.querySelector("#burgerButton");
 
 function handleMenuClick() {
-    body.classList.toggle("no-scroll");
+    document.querySelector("body").classList.toggle("no-scroll");
     header.classList.toggle("unfolded");
     nav.classList.toggle("hidden");
     burgerButton.classList.toggle("unfolded");
@@ -34,7 +33,20 @@ function toggleNav(animate = true) {
     }
 }
 
-toggleNav(false);
 burgerButton.addEventListener("click", handleMenuClick);
 window.addEventListener("scroll", () => toggleNav());
 window.addEventListener("resize", () => toggleNav());
+
+document.addEventListener("astro:before-swap", () => {
+    header.classList.remove("unfolded");
+    burgerButton.classList.remove("unfolded");
+});
+
+document.addEventListener("astro:page-load", () => {
+    toggleNav(false);
+    const activePage = window.location.href;
+    const links = nav.querySelectorAll("a");
+    links.forEach(link => {
+        link.classList.toggle("active", link.href.split("/")[3] === activePage.split("/")[3])
+    })
+});

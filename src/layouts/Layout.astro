@@ -23,11 +23,11 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 <html lang="en" data-theme={cookieTheme}>
     <Head title={title} description={description} image={image} />
     <body>
-        <Header theme={cookieTheme} />
-        <main>
+        <Header theme={cookieTheme} transition:animate="none" />
+        <main transition:animate="fade">
             <slot />
         </main>
-        <Footer />
+        <Footer transition:animate="none" />
     </body>
 </html>
 

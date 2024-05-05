@@ -40,27 +40,36 @@ const { text } = Astro.props;
 </style>
 
 <script>
-    const marker = document.querySelector(".marker") as HTMLElement;
-    const width = marker.offsetWidth * 1.2;
-    const height = marker.offsetHeight * 2;
-    const ns = "http://www.w3.org/2000/svg";
+    document.addEventListener("astro:page-load", () => {
+        const page = window.location.href.split("/")[3];
 
-    const svgElement = document.createElementNS(ns, "svg");
-    svgElement.style.transform = `scale(${(2 * width) / height}, 1)`;
-    svgElement.setAttribute("width", `${width}`);
-    svgElement.setAttribute("height", `${height}`);
-    svgElement.setAttribute("viewBox", "-1 -1 2 2");
-    marker.appendChild(svgElement);
+        if (page === "") {
+            const marker = document.querySelector(".marker") as HTMLElement;
+            const width = marker.offsetWidth * 1.2;
+            const height = marker.offsetHeight * 2;
+            const ns = "http://www.w3.org/2000/svg";
 
-    const path = document.createElementNS(ns, "path");
-    path.setAttribute("vector-effect", "non-scaling-stroke");
-    path.setAttribute("d", `${circlePath(-0.15, 0.05, 150, 190, 0.05, 0.3)}`);
-    svgElement.appendChild(path);
+            const svgElement = document.createElementNS(ns, "svg");
+            svgElement.style.transform = `scale(${(2 * width) / height}, 1)`;
+            svgElement.setAttribute("width", `${width}`);
+            svgElement.setAttribute("height", `${height}`);
+            svgElement.setAttribute("viewBox", "-1 -1 2 2");
+            marker.appendChild(svgElement);
 
-    addEventListener("load", () => {
-        path.classList.add("loaded");
+            const path = document.createElementNS(ns, "path");
+            path.setAttribute("vector-effect", "non-scaling-stroke");
+            path.setAttribute(
+                "d",
+                `${circlePath(-0.15, 0.05, 150, 190, 0.05, 0.3)}`,
+            );
+            svgElement.appendChild(path);
+
+            setTimeout(() => {
+                path.classList.add("loaded");
+            }, 200);
+        }
     });
-    
+
     // https://codepen.io/spencerthayer/pen/nhjwu
     function circlePath(dr_min, dr_max, θ0_min, θ0_max, dθ_min, dθ_max) {
         var c = 0.551915024494,
