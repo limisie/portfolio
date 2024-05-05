@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="About me | Kaja Limisiewicz">
+    <section class="header">
+        <div class="container">
+            <h1>Hi! I'm Kaja</h1>
+
+            <div class="flex equal">
+                <div>
+                    <Image
+                        src="/images/DSC05875.jpeg"
+                        alt="A happy person (I) enjoying the scenery of the Norwegian wilderness, with a lake and mountains behind them"
+                        width="1000"
+                        height="650"
+                    />
+                </div>
+                <div class="flow-content">
+                    <h4>
+                        I am a software developer who combines technical skills
+                        with artistic vision.
+                    </h4>
+                    <p>
+                        I gained my first experience in <span>architecture 
+                        and urban planning</span>, where I developed the 
+                        ability to think spatially and solve problems. It 
+                        gave me a solid foundation of intuition and aesthetics. 
+                        Transition to <span>applied computer science</span> 
+                        introduced me to a new medium that offers me complete 
+                        freedom to create.
+                    </p>
+                    <p>
+                        My diverse experience combines well with the leadership 
+                        and people management skills I acquired as <span>head 
+                        of a student club</span>. This distinct mix shapes 
+                        me into an M-shaped person with a unique perspective.
+                    </p>
+                    <p>
+                        I am a lifelong learner, constantly looking for new
+                        challenges. From solving puzzles, diving into a new
+                        language or exploring the outdoors through hiking,
+                        cycling and climbing.
+                    </p>
+                </div>
+
+                
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .flex {
+        flex-direction: column;
+        align-items: stretch;
+        --flow-space: 1rem;
+    }
+
+    span {
+        border-bottom: 1px var(--red) solid;
+    }
+
+    @media(min-width: 60rem) {
+        .flex {
+            flex-direction: unset;
+        }
+    }
+</style>
