@@ -4,7 +4,6 @@ import IconLink from "@components/atoms/IconLink.astro";
 import rightArrow from "@assets/icons/right-arrow.svg?raw";
 
 const { listHeader, list, href = "/", linkLabel = "See all" } = Astro.props;
-list.length = 4;
 ---
 
 <div class="container">
@@ -14,7 +13,7 @@ list.length = 4;
     </div>
     <div class="list flex equal">
         {
-            list.map((item) => {
+            list.slice(0, 4).map((item) => {
                 return <Card href={href} {...item} />;
             })
         }
