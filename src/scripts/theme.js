@@ -1,6 +1,3 @@
-const themeButton = document.querySelector("#themeButton");
-const themeIcon = document.querySelector("#themeIcon");
-
 function getTheme() {
     if (
         typeof localStorage !== "undefined" &&
@@ -16,7 +13,7 @@ function getTheme() {
 
 function changeTheme(newTheme) {
     document.documentElement.dataset.theme = newTheme;
-    themeIcon.setAttribute("class", newTheme);
+    document.querySelector("#themeIcon").setAttribute("class", newTheme);
 }
 
 function handleThemeClick() {
@@ -36,6 +33,7 @@ document.addEventListener(
     { once: true },
 );
 
+const themeButton = document.querySelector("#themeButton");
 themeButton.addEventListener("click", handleThemeClick);
 document.addEventListener("astro:after-swap", () => {
     changeTheme(getTheme());

@@ -13,17 +13,8 @@ const navLinks = [
 ];
 ---
 
-<header class="flex" transition:persist>
-    <a href="/" class="logo">
-        <Image
-            src="/favicon.svg"
-            alt="round red limi logo"
-            width={48}
-            height={48}
-        />
-    </a>
-
-    <nav class="hidden">
+<header transition:persist>
+    <nav class="hidden flex container">
         <ul class="flex unstyle-list">
             {
                 navLinks.map((link) => (
@@ -38,47 +29,75 @@ const navLinks = [
         </ul>
     </nav>
 
-    <BurgerMenu />
+    <div class="main-menu logo">
+        <a href="/">
+            <Image
+                src="/favicon.svg"
+                alt="round red limi logo"
+                width={48}
+                height={48}
+            />
+        </a>
+    </div>
+
+    <div class="main-menu burger">
+        <BurgerMenu />
+    </div>
 </header>
 
 <style>
     header {
-        position: fixed;
-        z-index: 999;
-        top: 0;
-        left: 0;
-        right: 0;
+        position: relative;
         height: calc(var(--nav-height) + 2 * var(--spacer));
+    }
 
-        padding: var(--spacer);
+    .main-menu {
+        position: fixed;
+        z-index: 1000;
+        margin: var(--spacer);
 
-        align-items: flex-start;
+        &.logo {
+            left: 0;
+            width: var(--nav-height);
+            height: var(--nav-height);
+        }
+
+        &.burger {
+            right: 0;
+
+            button {
+                transition: opacity 0.2s ease-in;
+            }
+        }
+    }
+
+    nav {
+        position: fixed;
+        inset-inline: 0;
+        top: 0;
+        height: calc(var(--nav-height) + var(--spacer));
+        padding-top: var(--spacer);
+
+        justify-content: end;
+        align-items: center;
 
         backdrop-filter: blur(0);
         -webkit-backdrop-filter: blur(0);
-        transition:
-            -webkit-backdrop-filter 0.5s ease-out,
-            backdrop-filter 0.5s ease-out,
-            height 0.01s ease-out 0.5s,
-            z-index 0s linear 0.5s;
 
-        nav {
-            width: 0;
-        }
-
-        .logo {
-            width: 3rem;
-            height: 3rem;
-            flex-shrink: 0;
+        &.animated {
+            transition: opacity 0.2s ease-in;
         }
 
         ul {
-            min-height: var(--nav-height);
-            gap: calc(1.2 * var(--spacer));
+            justify-content: flex-end;
         }
 
         &.unfolded {
+            z-index: 999;
             height: 100vh;
+
+            justify-content: center;
+            align-items: start;
 
             backdrop-filter: blur(var(--spacer));
             -webkit-backdrop-filter: blur(var(--spacer));
@@ -91,33 +110,6 @@ const navLinks = [
                 margin-top: calc(var(--nav-height) + var(--spacer));
                 flex-direction: column;
                 gap: 2rem;
-            }
-        }
-    }
-
-    @media (min-width: 40rem) {
-        header {
-            height: calc(var(--nav-height) + 2 * var(--spacer));
-            padding: var(--spacer);
-
-            nav {
-                width: 100%;
-                max-width: calc(
-                    var(--container-width) - 2 * var(--container-padding)
-                );
-                opacity: 1;
-
-                &.animated {
-                    transition: all 0.2s ease-in;
-                }
-            }
-
-            ul {
-                justify-content: flex-end;
-            }
-
-            &:has(nav.hidden) {
-                z-index: 0;
             }
         }
     }
