@@ -9,6 +9,7 @@ const allArticlesRequest = {
             coverImage {
                 alt
                 url
+                width
             }
             tags
         }
@@ -36,6 +37,7 @@ const allArticlesWithContentRequest = {
                       alt
                       url
                       title
+                      width
                     }
                   }
             }
@@ -56,6 +58,7 @@ const allProjectsRequest = {
             coverImage {
                 alt
                 url
+                width
               }
           }
       }`,
@@ -77,6 +80,7 @@ const allProjectsRequestWithContent = {
               alt
               url
               title
+              width
             }
           }
       }`,

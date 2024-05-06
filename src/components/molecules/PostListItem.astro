@@ -16,8 +16,9 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
                     <Image
                         src={coverImage.url}
                         alt={coverImage.alt}
-                        width={500}
-                        height={500}
+                        inferSize={true}
+                        format="avif"
+                        quality={"mid"}
                     />
                 ) : (
                     <div class="placeholder-background" />
