@@ -1,10 +1,10 @@
 ---
 import PostList from "@components/organisms/PostList.astro";
 import Layout from "@layouts/Layout.astro";
-import { getAllArticles } from "@scripts/data.js";
+import { data } from "@scripts/data.js";
 
 export async function getStaticPaths({ paginate }) {
-    const articles = await getAllArticles();
+    const articles = data.articles;
     const tags = [...new Set(articles.map((article) => article.tags).flat())];
 
     return tags.flatMap((category) => {

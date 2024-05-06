@@ -3,11 +3,11 @@ import { Markdown } from "astro-remote";
 import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
-import { getAllProjectsWithContent, getAllProjects } from "@scripts/data.js";
 import { getDateYear, sortByCategory, slugify } from "@scripts/utils.js";
+import { data } from "@scripts/data.js";
 
 export async function getStaticPaths() {
-    const projects = await getAllProjectsWithContent();
+    const projects = data.projects;
 
     return projects.map((project) => {
         return {
@@ -41,8 +41,7 @@ const dateString = endDate
     ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
     : `${getDateYear(startDate)}`;
 
-const projects = await getAllProjects();
-const suggestedProjects = projects
+const suggestedProjects = data.projects
     .filter((project) => project.title != title)
     .sort(sortByCategory(category));
 ---

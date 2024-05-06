@@ -1,9 +1,9 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import ProjectList from "@components/organisms/ProjectList.astro";
-import { getAllProjects } from "@scripts/data.js";
+import { data } from "@scripts/data.js";
 
-const projects = await getAllProjects();
+const projects = data.projects;
 const categories = [...new Set(projects.map((project) => project.category))];
 
 const projectsByCategory = categories.map((category) => {

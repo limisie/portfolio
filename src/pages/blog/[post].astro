@@ -8,12 +8,11 @@ import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
 import PostContent from "@components/molecules/PostContent.astro";
 import PostHeader from "@components/molecules/PostHeader.astro";
-import { getAllArticlesWithContent, getAllArticles } from "@scripts/data.js";
+import { data } from "@scripts/data.js";
 
-const articles = await getAllArticles();
 
 export async function getStaticPaths() {
-    const articles = await getAllArticlesWithContent();
+    const articles = data.articles;
 
     return articles.map((article) => {
         return {
@@ -56,7 +55,7 @@ const { tags, title, publishDate, body, image } = Astro.props;
         <CardList
             href="/blog"
             listHeader="Other posts"
-            list={articles.filter((article) => article.title != title)}
+            list={data.articles.filter((article) => article.title != title)}
         />
     </section>
 </Layout>

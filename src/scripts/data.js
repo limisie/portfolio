@@ -9,24 +9,6 @@ const allArticlesRequest = {
             coverImage {
                 alt
                 url
-                width
-            }
-            tags
-        }
-    }`,
-}
-
-const allArticlesWithContentRequest = {
-    query: `{
-        allArticles {
-            id
-            title
-            slug
-            excerpt
-            publishDate
-            coverImage {
-                alt
-                url
             }
             tags
             content {
@@ -55,27 +37,14 @@ const allProjectsRequest = {
             excerpt
             startDate
             endDate
+            description
+            roles
+            technologies
             coverImage {
                 alt
                 url
                 width
               }
-          }
-      }`,
-}
-
-const allProjectsRequestWithContent = {
-    query: `{
-        allProjects {
-            category
-            id
-            slug
-            title
-            startDate
-            endDate
-            description
-            roles
-            technologies
             screenshots {
               alt
               url
@@ -101,22 +70,17 @@ async function postRequest(request) {
     return parsedResponse.data
 }
 
-export async function getAllProjects() {
+async function getAllProjects() {
     const response = await postRequest(allProjectsRequest);
     return response.allProjects
 }
 
-export async function getAllProjectsWithContent() {
-    const response = await postRequest(allProjectsRequestWithContent);
-    return response.allProjects
-}
-
-export async function getAllArticles() {
+async function getAllArticles() {
     const response = await postRequest(allArticlesRequest);
     return response.allArticles
 }
 
-export async function getAllArticlesWithContent() {
-    const response = await postRequest(allArticlesWithContentRequest);
-    return response.allArticles
+export const data = {
+    articles: await getAllArticles(),
+    projects: await getAllProjects()
 }

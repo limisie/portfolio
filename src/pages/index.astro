@@ -4,9 +4,7 @@ import Hero from "@components/organisms/Hero.astro";
 import CardList from "@components/organisms/CardList.astro";
 import Layout from "@layouts/Layout.astro";
 
-import { getAllProjects } from "@scripts/data.js";
-
-const projects = await getAllProjects();
+import { data } from "@scripts/data.js";
 ---
 
 <Layout>
@@ -15,6 +13,6 @@ const projects = await getAllProjects();
 		<About />
 	</section>
 	<section>
-		<CardList listHeader="My work" href="/portfolio" list={projects} />
+		<CardList listHeader="My work" href="/portfolio" list={data.projects} />
 	</section>
 </Layout>

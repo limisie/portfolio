@@ -2,11 +2,11 @@
 import Layout from "@layouts/Layout.astro";
 import ProjectList from "@components/organisms/ProjectList.astro";
 import CardList from "@components/organisms/CardList.astro";
-import { getAllProjects } from "@scripts/data.js";
 import { slugify } from "@scripts/utils.js";
+import { data } from "@scripts/data.js";
 
 export async function getStaticPaths() {
-    const projects = await getAllProjects();
+    const projects = data.projects;
     const categories = [
         ...new Set(projects.map((project) => project.category)),
     ];
@@ -27,8 +27,7 @@ export async function getStaticPaths() {
 const { category } = Astro.params;
 const { projects, category: categoryString } = Astro.props;
 
-const allProjects = await getAllProjects();
-const suggestedProjects = allProjects.filter(
+const suggestedProjects = data.projects.filter(
     (project) => project.category != categoryString,
 );
 ---
