@@ -13,17 +13,15 @@ const darkBlue = "#4F6069";
 
 const {
     title = "Kaja Limisiewicz's personal site",
-    description = "Discover my programming skills and learn about my technical insights through my portfolio and blog. Immerse yourself in the world of coding, website development and design with me.",
+    description = "Discover my programming skills and learn about my technical insights through my portfolio and blog.",
     image = "/images/limi.jpg",
 } = Astro.props;
-
-const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 ---
 
-<html lang="en" data-theme={cookieTheme}>
+<html lang="en" data-theme="light">
     <Head title={title} description={description} image={image} />
     <body>
-        <Header theme={cookieTheme} transition:animate="none" />
+        <Header transition:animate="none" />
         <main transition:animate="fade">
             <slot />
         </main>
@@ -34,7 +32,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 <style define:vars={{ black, darkGrey, white, grey, red, blue, darkBlue }} is:global>
     :root {
         scroll-behavior: smooth;
-        
+
         --spacer: 1rem;
         --container-width: 75rem;
         --container-padding: 1rem;
@@ -121,7 +119,11 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         min-height: 100vh;
         justify-content: space-between;
 
-        background: linear-gradient(180deg, var(--clr-surface) var(--background-surface-height), var(--clr-background) var(--background-surface-height));
+        background: linear-gradient(
+            180deg,
+            var(--clr-surface) var(--background-surface-height),
+            var(--clr-background) var(--background-surface-height)
+        );
         background-repeat: no-repeat;
     }
 
@@ -185,7 +187,7 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
         margin-bottom: calc(4 * var(--spacer));
     }
 
-    section:first-of-type {        
+    section:first-of-type {
         padding-top: calc(3.5 * var(--spacer) + var(--nav-height));
         margin-bottom: calc(3 * var(--spacer));
     }
@@ -261,23 +263,24 @@ const cookieTheme = Astro.cookies.get("theme")?.value || "light";
 
     .card {
         position: relative;
-        
+
         > a:first-child::before {
-            content: ' ';
+            content: " ";
             position: absolute;
             inset: 0;
             z-index: 1;
         }
-        
+
         .img-wrapper {
             overflow: hidden;
 
             img {
                 filter: grayscale(80%);
                 opacity: 0.6;
-                transition: opacity 0.5s ease-in-out,
-                            transform 0.5s ease-in-out,
-                            filter 0.5s ease-in-out;
+                transition:
+                    opacity 0.5s ease-in-out,
+                    transform 0.5s ease-in-out,
+                    filter 0.5s ease-in-out;
             }
         }
 

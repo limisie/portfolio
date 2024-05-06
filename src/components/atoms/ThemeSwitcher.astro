@@ -1,15 +1,11 @@
----
-const { theme: cookieTheme } = Astro.props;
----
-
 <button id="themeButton">
     <svg
-        class={cookieTheme}
         id="themeIcon"
         width="18"
         height="18"
         viewBox="0 0 18 18"
         xmlns="http://www.w3.org/2000/svg"
+        class="light"
     >
         <circle id="moon" cx="9" cy="9" r="8" mask="url(#moon-mask)"></circle>
         <mask id="moon-mask">
@@ -137,26 +133,6 @@ const { theme: cookieTheme } = Astro.props;
     }
 </style>
 
-<script define:vars={{ cookieTheme }}>
-    const themeButton = document.querySelector("#themeButton");
-    const themeIcon = document.querySelector("#themeIcon");
-    themeButton.addEventListener("click", handleThemeClick);
-
-    function saveThemeCookie(theme) {
-        const d = new Date();
-        d.setTime(d.getTime() + 365 * 86400000);
-        document.cookie = `theme=${theme};expires=${d.toUTCString()};SameSite=Strict;Path="/"`;
-    }
-
-    function changeTheme(theme) {
-        document.documentElement.setAttribute("data-theme", theme);
-        themeIcon.setAttribute("class", theme);
-        saveThemeCookie(theme);
-    }
-
-    function handleThemeClick() {
-        const theme = document.documentElement.getAttribute("data-theme");
-        const newTheme = theme == "light" ? "dark" : "light";
-        changeTheme(newTheme);
-    }
+<script>
+        import "../../scripts/theme.js";
 </script>
