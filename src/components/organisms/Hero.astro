@@ -3,64 +3,69 @@ import CircledText from "@components/atoms/CircledText.astro";
 import HeroBackground from "@components/molecules/HeroBackground.astro";
 ---
 
-<section>
+<section class="hero">
     <div class="container">
-        <h1>Jack of all trades master of none</h1>
-        <div class="block">
-            <p>but oftentimes better than a master of</p>
-            <CircledText text="one" />
+        <div class="text">
+            <h1>Jack of all trades master of none</h1>
+            <div class="block">
+                <p>but oftentimes better than a master of</p>
+                <CircledText text="one" />
+            </div>
         </div>
     </div>
+
     <HeroBackground />
 </section>
 
 <style>
-    section {
-        padding-top: calc(var(--nav-height) + 2 * var(--spacer)) !important;
-        padding-bottom: var(--container-padding);
-        min-height: 100vw;
-
+    .hero {
         position: relative;
-        z-index: -1;
+        top: calc(-1 * (var(--nav-height) + 2 * var(--spacer)));
+
+        margin: 0;
+        padding: 0;
+        min-height: 100vw;
     }
 
-    h1 {
-        margin-top: 25vw;
-        max-width: 16rem;
+    .container {
+        padding-top: 50vw;
     }
 
-    .block {
-        text-align: end;
-        max-width: 10rem;
-        margin-left: auto;
-        margin-top: var(--spacer);
-    }
-
-    p {
-        display: inline;
-    }
-
-    @media (min-width: 40rem) {
-        section {
-            min-height: 80vh;
-
-            &::after {
-                margin: 0 auto;
-                max-width: calc(
-                    var(--container-width) - var(--container-padding) * 4
-                );
-                inset: calc(var(--container-padding) * 2);
-            }
-        }
-
+    .text {
         h1 {
-            margin-top: 25vh;
-            max-width: 37rem;
+            max-width: 16rem;
         }
 
         .block {
-            max-width: 14rem;
-            font-size: var(--fs-medium);
+            text-align: end;
+            max-width: 10rem;
+            margin-left: auto;
+            margin-top: var(--spacer);
+        }
+
+        p {
+            display: inline;
+        }
+    }
+
+    @media (min-width: 40rem) {
+        .hero {
+            min-height: 80vh;
+        }
+
+        .container {
+            padding-top: 36vh;
+        }
+
+        .text {
+            h1 {
+                max-width: 37rem;
+            }
+
+            .block {
+                max-width: 14rem;
+                font-size: var(--fs-medium);
+            }
         }
     }
 </style>

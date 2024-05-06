@@ -1,46 +1,41 @@
-<div class="background">
-    <div class="container">
-        <div class="shape"></div>
-    </div>
-    <div class="filter"></div>
-</div>
+<div class="background"></div>
 
 <style>
     .background {
-        position: absolute;
-        inset: 0;
-        z-index: -2;
-    }
-
-    .container {
-        position: relative;
-        height: 100%;
-    }
-
-    .shape {
-        content: "";
-        position: absolute;
-
-        top: 8rem;
-        bottom: 4rem;
-        inset-inline: 4rem;
-
-        background: var(--clr-secondary);
-    }
-
-    .filter {
         content: "";
         position: absolute;
         inset: 0;
+        z-index: -1;
 
-        backdrop-filter: blur(8rem);
-        -webkit-backdrop-filter: blur(8rem);
+        &::before {
+            content: "";
+            position: absolute;
+            margin: 0 auto;
+            background: var(--clr-secondary);
+
+            top: calc(3 * var(--nav-height));
+            bottom: calc(2 * var(--nav-height));
+            inset-inline: calc(2 * var(--nav-height));
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            backdrop-filter: blur(10rem);
+            -webkit-backdrop-filter: blur(10rem);
+        }
     }
 
     @media (min-width: 40rem) {
-        .shape {
-            bottom: var(--container-padding);
-            inset-inline: calc(1.5 * var(--container-padding));
+        .background::before {
+            top: calc(2 * var(--container-padding));
+            bottom: calc(1.5 * var(--container-padding));
+            inset-inline: calc(2 * var(--container-padding));
+            max-width: calc(
+                var(--container-width) - 4 * var(--container-padding)
+            );
         }
     }
 </style>
