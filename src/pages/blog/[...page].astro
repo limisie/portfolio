@@ -15,7 +15,7 @@ const { page } = Astro.props;
 const { data: articles, currentPage, lastPage, url } = page;
 ---
 
-<Layout title="Blog | Kaja Limisiewicz">
+<Layout title="Blog | Kaja Limisiewicz" description={`Recent posts in my blog.`}>
     <section>
         <div class="container">
             <h1>Recent posts</h1>

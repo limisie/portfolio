@@ -8,13 +8,25 @@ const {
 
 <div class="flex">
     <a
-        class:list={["left-arrow", { "disabled": currentPage <= 1 }]}
-        href={url.prev}><Fragment set:html={leftArrow} /></a
+        class:list={["left-arrow", { disabled: currentPage <= 1 }]}
+        href={url.prev}
+        ><Fragment
+            set:html={leftArrow}
+            aria-label={currentPage <= 1
+                ? "no previous page"
+                : `go back to the previous page (page ${currentPage - 1} of ${lastPage})`}
+        /></a
     >
     <p>{currentPage}</p>
     <a
-        class:list={["right-arrow", { "disabled": currentPage >= lastPage }]}
-        href={url.next}><Fragment set:html={rightArrow} /></a
+        class:list={["right-arrow", { disabled: currentPage >= lastPage }]}
+        href={url.next}
+        ><Fragment
+            set:html={rightArrow}
+            aria-label={currentPage >= lastPage
+                ? "no more pages"
+                : `go to the next page (page ${currentPage + 1} of ${lastPage})`}
+        /></a
     >
 </div>
 

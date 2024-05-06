@@ -1,9 +1,13 @@
 ---
-const { url, platform, username, icon, ...rest } = Astro.props;
+const { url, name, username, icon, ...rest } = Astro.props;
 ---
 
-<a href=`https://${url}/${username}/` {...rest}>
-    <Fragment set:html={icon}></Fragment>
+<a
+    href=`https://${url}/${username}/`
+    aria-label={`go to my profile on ${name}`}
+    {...rest}
+>
+    <Fragment set:html={icon} />
 </a>
 
 <style is:inline>

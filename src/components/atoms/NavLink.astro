@@ -2,7 +2,7 @@
 const { href, text, ...rest } = Astro.props;
 ---
 
-<a href={href} {...rest}>{text}</a>
+<a href={href} aria-label={`link to ${text} page`} {...rest}>{text}</a>
 
 <style>
     a {

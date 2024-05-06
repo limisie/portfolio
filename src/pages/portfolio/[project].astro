@@ -47,11 +47,11 @@ const suggestedProjects = projects
     .sort(sortByCategory(category));
 ---
 
-<Layout title={title + " | Kaja Limisiewicz's Portfolio"}>
+<Layout title={title + " | Kaja Limisiewicz's Portfolio"} description={`${title} project in my portfolio.`}>
     <section>
         <div class="container grid">
             <div id="category">
-                <a class="light-font" href=`/portfolio/${slugify(category)}`
+                <a class="light-font" href=`/portfolio/${slugify(category)}` aria-label={`go to ${category} category page in my portfolio`}
                     >{category}</a
                 >
             </div>

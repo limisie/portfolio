@@ -11,7 +11,7 @@ const headingsData = headings.map((heading) => ({
 <aside>
     {
         headingsData.map((heading) => (
-            <a href={heading.href} class="flex" id={heading.id}>
+            <a href={heading.href} class="flex" id={heading.id} aria-label={`scroll to ${heading.text} section of this post`}>
                 <div class="line" />
                 <p>{heading.text}</p>
             </a>

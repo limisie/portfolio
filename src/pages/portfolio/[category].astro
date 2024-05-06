@@ -33,7 +33,7 @@ const suggestedProjects = allProjects.filter(
 );
 ---
 
-<Layout title=`Portfolio - ${categoryString} | Kaja Limisiewicz`>
+<Layout title=`Portfolio - ${categoryString} | Kaja Limisiewicz` description={`${categoryString} projects in my portfolio.`}>
     <section class="header">
         <ProjectList category={categoryString} projects={projects} />
     </section>

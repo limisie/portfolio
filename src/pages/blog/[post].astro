@@ -38,7 +38,7 @@ const { post } = Astro.params;
 const { tags, title, publishDate, body, image } = Astro.props;
 ---
 
-<Layout title={title + " | Kaja Limisiewicz"}>
+<Layout title={title + " | Kaja Limisiewicz"} description={`Post about ${title}.`}>
     <section>
         <div class="container">
             <PostHeader

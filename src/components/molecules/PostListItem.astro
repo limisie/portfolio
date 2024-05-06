@@ -8,7 +8,7 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
 ---
 
 <li class="card">
-    <a href=`/blog/${slug}`></a>
+    <a href=`/blog/${slug}` aria-label={`go to blog post about ${title}`}></a>
     <div class="grid">
         <div class="img-wrapper">
             {

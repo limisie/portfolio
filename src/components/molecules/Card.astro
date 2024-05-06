@@ -5,7 +5,7 @@ const { href, slug, title, excerpt, coverImage } = Astro.props;
 ---
 
 <div class="card">
-    <a href=`${href}/${slug}`></a>
+    <a href=`${href}/${slug}` aria-label={`go to page about ${title} in my ${href}`}></a>
     <div class="img-wrapper">
         {
             coverImage ? (

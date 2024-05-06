@@ -24,7 +24,7 @@ const {
 } = Astro.props;
 ---
 
-<Layout title=`${category} posts | Kaja Limisiewicz`>
+<Layout title=`${category} posts | Kaja Limisiewicz` description={`Posts about ${category} in my blog.`}>
     <section>
         <div class="container">
             <h1>Posts about <span>{category}</span></h1>
