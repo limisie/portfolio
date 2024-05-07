@@ -4,8 +4,8 @@ import { Image } from "astro:assets";
 const { href, slug, title, excerpt, coverImage } = Astro.props;
 ---
 
-<div class="card">
-    <a href=`${href}/${slug}` aria-label={`go to page about ${title} in my ${href.slice(1)}`}></a>
+<div class="card flow-content">
+    <a href=`${href}/${slug}` aria-label={`go to page about ${title}`}></a>
     <div class="img-wrapper">
         {
             coverImage ? (
@@ -28,7 +28,7 @@ const { href, slug, title, excerpt, coverImage } = Astro.props;
 
 <style>
     .card {
-        --flow-space: calc(0.1 * var(--spacer));
+        --flow-space: calc(0.2 * var(--spacer));
         width: 100%;
 
         .excerpt {

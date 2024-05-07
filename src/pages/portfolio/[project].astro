@@ -1,10 +1,9 @@
 ---
-import { Markdown } from "astro-remote";
-import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
 import { getDateYear, sortByCategory, slugify } from "@scripts/utils.js";
 import { data } from "@scripts/data.js";
+import ProjectDetails from "@components/organisms/ProjectContent.astro";
 
 export async function getStaticPaths() {
     const projects = data.projects;
@@ -13,187 +12,37 @@ export async function getStaticPaths() {
         return {
             params: { project: project.slug },
             props: {
-                roles: project.roles,
-                category: project.category,
-                technologies: project.technologies,
-                startDate: project.startDate,
-                endDate: project.endDate,
-                title: project.title,
-                description: project.description,
-                images: project.screenshots,
+                projectData: {
+                    roles: project.roles,
+                    category: project.category,
+                    technologies: project.technologies,
+                    startDate: project.startDate,
+                    endDate: project.endDate,
+                    title: project.title,
+                    description: project.description,
+                    images: project.screenshots,
+                },
             },
         };
     });
 }
 
-const {
-    roles,
-    category,
-    title,
-    startDate,
-    endDate,
-    technologies,
-    description,
-    images,
-} = Astro.props;
-
-const dateString = endDate
-    ? `${getDateYear(startDate)}-${getDateYear(endDate)}`
-    : `${getDateYear(startDate)}`;
+const { projectData } = Astro.props;
 
 const suggestedProjects = data.projects
-    .filter((project) => project.title != title)
-    .sort(sortByCategory(category));
+    .filter((project) => project.title != projectData.title)
+    .sort(sortByCategory(projectData.category));
 ---
 
-<Layout title={title + " | Kaja Limisiewicz's Portfolio"} description={`${title} project in my portfolio.`}>
-    <section>
-        <div class="container grid">
-            <div id="category">
-                <a class="light-font" href=`/portfolio/${slugify(category)}` aria-label={`go to ${category} category page in my portfolio`}
-                    >{category}</a
-                >
-            </div>
-            <div id="title">
-                <h1>{title}</h1>
-            </div>
-            <div id="roles">
-                <p class="light-font">My roles</p>
-                <ul class="unstyle-list">
-                    {roles.map((role) => <li>{role}</li>)}
-                </ul>
-            </div>
-            <div id="technologies">
-                <p class="light-font">Used technologies</p>
-                <ul class="unstyle-list">
-                    {technologies.map((technology) => <li>{technology}</li>)}
-                </ul>
-            </div>
-            <div id="date">
-                <p id="date-label" class="light-font">Year</p>
-                <p>{dateString}</p>
-            </div>
-            <div id="description" class="flow-content">
-                <Markdown content={description} />
-            </div>
-        </div>
-        <div class="container flow-content">
-            {
-                images.map((image) => {
-                    return (
-                        <Image
-                            src={image.url}
-                            alt={image.alt}
-                            inferSize={true}
-                            format="avif"
-                            quality={"high"}
-                        />
-                    );
-                })
-            }
-        </div>
-    </section>
-    <section>
-        <CardList
-            list={suggestedProjects}
-            listHeader="See my other projects"
-            href="/portfolio"
-        />
-    </section>
+<Layout
+    title={projectData.title + " | Kaja Limisiewicz's Portfolio"}
+    description={`${projectData.title} project in my portfolio.`}
+>
+    <ProjectDetails projectData={projectData} />
+    
+    <CardList
+        list={suggestedProjects}
+        listHeader="See my other projects"
+        href="/portfolio"
+    />
 </Layout>
-
-<style>
-    h1 {
-        font-size: var(--fs-h3);
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: auto auto;
-
-        grid-template-areas:
-            "category date"
-            "title title"
-            "description description"
-            "roles technologies";
-        gap: 1rem;
-        margin-bottom: var(--spacer);
-
-        div[id] > p {
-            margin-bottom: 0.3rem;
-        }
-
-        #category {
-            grid-area: category;
-            align-self: center;
-
-            p {
-                margin-bottom: 0;
-            }
-        }
-
-        #title {
-            grid-area: title;
-        }
-
-        #roles {
-            grid-area: roles;
-        }
-
-        #technologies {
-            grid-area: technologies;
-        }
-
-        #date {
-            grid-area: date;
-            text-align: end;
-            align-self: center;
-
-            #date-label {
-                display: none;
-            }
-
-            p:last-child {
-                margin-bottom: 0;
-            }
-        }
-
-        #description {
-            grid-area: description;
-            text-align: justify;
-
-            --flow-space: 0.7rem;
-
-            ul {
-                margin-block: 1.5rem;
-                padding-inline-start: 1rem;
-
-                li {
-                    margin-top: 0.7rem;
-                }
-            }
-        }
-    }
-
-    @media (min-width: 60rem) {
-        .grid {
-            grid-template-columns: 1fr 1fr 50%;
-
-            grid-template-areas:
-                "category category ."
-                "title title description"
-                "roles technologies description"
-                "date technologies description"
-                ". . description";
-
-            #date {
-                text-align: unset;
-                align-self: end;
-
-                #date-label {
-                    display: unset;
-                }
-            }
-        }
-    }
-</style>

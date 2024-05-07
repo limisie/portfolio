@@ -6,34 +6,37 @@ import rightArrow from "@assets/icons/right-arrow.svg?raw";
 const { listHeader, list, href = "/", linkLabel = "See all" } = Astro.props;
 ---
 
-<div class="container">
-    <div class="header flex">
-        <h2>{listHeader}</h2>
-        <IconLink href={href} text={linkLabel} iconRight={rightArrow} />
+<section>
+    <div class="container">
+        <div class="flex">
+            <h2>{listHeader}</h2>
+            <IconLink href={href} text={linkLabel} iconRight={rightArrow} />
+        </div>
+
+        <div class="flex equal">
+            {
+                list.slice(0, 4).map((item) => {
+                    return <Card href={href} {...item} />;
+                })
+            }
+        </div>
     </div>
-    <div class="list flex equal">
-        {
-            list.slice(0, 4).map((item) => {
-                return <Card href={href} {...item} />;
-            })
-        }
-    </div>
-</div>
+</section>
 
 <style>
-    .header {
+    .flex:first-of-type {
         align-items: end;
         margin-bottom: var(--spacer);
     }
 
-    .list {
+    .flex:nth-of-type(2) {
         flex-direction: column;
         gap: 2rem;
         align-items: start;
     }
 
     @media (min-width: 40rem) {
-        .list {
+        .flex:nth-of-type(2) {
             flex-direction: unset;
             gap: 1rem;
             justify-content: flex-start;

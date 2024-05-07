@@ -1,0 +1,96 @@
+---
+import PostBody from "@components/molecules/PostBody.astro";
+import PostHeader from "@components/molecules/PostHeader.astro";
+import PostTableOfContents from "@components/molecules/PostTableOfContents.astro";
+import {
+    getDateWithOrdinalSuffix,
+    getTimeToReadDastDocument,
+    getHeadingsFromDastDocument,
+} from "@scripts/utils.js";
+
+const {
+    postData: { tags, title, publishDate, body, image },
+} = Astro.props;
+
+const headings = getHeadingsFromDastDocument(body);
+---
+
+<section>
+    <div class="container">
+        <PostHeader
+            title={title}
+            date={getDateWithOrdinalSuffix(publishDate)}
+            timeToRead={getTimeToReadDastDocument(body)}
+            tags={tags}
+            links={null}
+            coverImage={image}
+        />
+
+        <div class="flex vertical-split">
+            <PostBody content={body} />
+            <PostTableOfContents headings={headings} />
+        </div>
+    </div>
+</section>
+
+<style>
+    .flex {
+        --first-split: 72%;
+        flex-direction: column;
+        align-items: center;
+        margin-top: var(--spacer);
+    }
+
+    @media (min-width: 60rem) {
+        .flex {
+            flex-direction: row;
+            align-items: start;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        const currentUrl = window.location.href.split("/");
+
+        if (currentUrl[3] === "blog" && currentUrl[4]) {
+            const tocAllItems = document.querySelectorAll("[id^='toc-']");
+            const observer = new IntersectionObserver(
+                function (entries, observer) {
+                    entries.forEach((entry) => {
+                        const tocEntry = document.getElementById(
+                            `toc-${entry.target.id}`,
+                        );
+                        if (entry.isIntersecting) {
+                            tocAllItems.forEach((item) => {
+                                if (item == tocEntry) {
+                                    item.classList.toggle("active", true);
+                                } else {
+                                    item.classList.toggle("active", false);
+                                }
+                            });
+                        }
+                    });
+                },
+                {
+                    rootMargin: "20% 0% -75% 0%",
+                },
+            );
+
+            const article = document.querySelector("article");
+            const articleHeaders = article.querySelectorAll("h1");
+            const introduction = article.firstElementChild;
+            const targets = [introduction, ...articleHeaders];
+            targets.map((target) => {
+                target.id = target.textContent
+                    .replace(/\s+/g, "-")
+                    .toLowerCase();
+                observer.observe(target);
+            });
+            introduction.id = "introduction";
+
+            const tocIntroduction = document.getElementById("toc-introduction");
+            tocIntroduction.classList.add("active");
+        }
+    });
+</script>

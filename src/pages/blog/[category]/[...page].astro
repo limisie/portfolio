@@ -24,24 +24,13 @@ const {
 } = Astro.props;
 ---
 
-<Layout title=`${category} posts | Kaja Limisiewicz` description={`Posts about ${category} in my blog.`}>
-    <section>
-        <div class="container">
-            <h1>Posts about <span>{category}</span></h1>
-            <PostList
-                articles={articles}
-                pageData={{ currentPage, lastPage, url }}
-            />
-        </div>
-    </section>
+<Layout
+    title=`${category} posts | Kaja Limisiewicz`
+    description={`Posts about ${category} in my blog.`}
+>
+    <PostList
+        articles={articles}
+        category={category}
+        pageData={{ currentPage, lastPage, url }}
+    />
 </Layout>
-
-<style>
-    h1 {
-        font-weight: var(--fw-medium);
-    }
-
-    span {
-        font-weight: var(--fw-extra-bold);
-    }
-</style>

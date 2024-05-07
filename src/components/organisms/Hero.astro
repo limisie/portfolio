@@ -3,7 +3,7 @@ import CircledText from "@components/atoms/CircledText.astro";
 import HeroBackground from "@components/molecules/HeroBackground.astro";
 ---
 
-<section class="hero">
+<section>
     <div class="container">
         <div class="text">
             <h1>Jack of all trades master of none</h1>
@@ -18,7 +18,7 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
 </section>
 
 <style>
-    .hero {
+    section {
         position: relative;
         top: calc(-1 * (var(--nav-height) + 2 * var(--spacer)));
 
@@ -50,7 +50,7 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
     }
 
     @media (min-width: 40rem) {
-        .hero {
+        section {
             min-height: 80vh;
         }
 

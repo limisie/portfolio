@@ -9,10 +9,6 @@ import { data } from "@scripts/data.js";
 
 <Layout>
 	<Hero />
-	<section>
-		<About />
-	</section>
-	<section>
-		<CardList listHeader="My work" href="/portfolio" list={data.projects} />
-	</section>
+	<About />
+	<CardList listHeader="My work" href="/portfolio" list={data.projects} />
 </Layout>

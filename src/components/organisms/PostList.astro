@@ -2,28 +2,37 @@
 import PostListItem from "@components/molecules/PostListItem.astro";
 import PageSelector from "@components/atoms/PageSelector.astro";
 import { getDateWithOrdinalSuffix } from "@scripts/utils.js";
-const { articles, pageData } = Astro.props;
+
+const { articles, pageData, category } = Astro.props;
 ---
 
-<div class:list={["flex", { "vertical-split": pageData }]}>
-    <ul class="unstyle-list">
-        {
-            articles.map((article) => (
-                <PostListItem
-                    title={article.title}
-                    excerpt={article.excerpt}
-                    publishDate={getDateWithOrdinalSuffix(article.publishDate)}
-                    coverImage={article.coverImage}
-                    slug={article.slug}
-                    tags={article.tags}
-                />
-            ))
-        }
-    </ul>
-    <div>
-        {pageData && <PageSelector {pageData} />}
+<section>
+    <div class="container">
+        { category ? (<h1>Posts about <span>{category}</span></h1>) : (<h1>Recent posts</h1>) }
+
+        <div class:list={["flex", { "vertical-split": pageData }]}>
+            <ul class="unstyle-list">
+                {
+                    articles.map((article) => (
+                        <PostListItem
+                            title={article.title}
+                            excerpt={article.excerpt}
+                            publishDate={getDateWithOrdinalSuffix(
+                                article.publishDate,
+                            )}
+                            coverImage={article.coverImage}
+                            slug={article.slug}
+                            tags={article.tags}
+                        />
+                    ))
+                }
+            </ul>
+            <div>
+                {pageData && <PageSelector {pageData} />}
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
 <style>
     ul {
@@ -37,6 +46,16 @@ const { articles, pageData } = Astro.props;
     .flex {
         flex-direction: column;
     }
+
+    h1:has(span) {
+        font-weight: var(--fw-medium);
+
+        span {
+            font-weight: var(--fw-extra-bold);
+        }
+    }
+
+    
 
     @media (min-width: 40rem) {
         .flex {

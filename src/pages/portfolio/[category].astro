@@ -32,10 +32,11 @@ const suggestedProjects = data.projects.filter(
 );
 ---
 
-<Layout title=`Portfolio - ${categoryString} | Kaja Limisiewicz` description={`${categoryString} projects in my portfolio.`}>
-    <section class="header">
-        <ProjectList category={categoryString} projects={projects} />
-    </section>
+<Layout
+    title=`Portfolio - ${categoryString} | Kaja Limisiewicz`
+    description={`${categoryString} projects in my portfolio.`}
+>
+    <ProjectList category={categoryString} projects={projects} />
     <section>
         <CardList
             list={suggestedProjects}

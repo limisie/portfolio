@@ -15,11 +15,9 @@ const projectsByCategory = categories.map((category) => {
 ---
 
 <Layout title="Portfolio | Kaja Limisiewicz" description={`My portfolio page.`}>
-    <section class="header">
-        {
-            projectsByCategory.map(({ category, projects }) => {
-                return <ProjectList category={category} projects={projects} />;
-            })
-        }
-    </section>
+    {
+        projectsByCategory.map(({ category, projects }) => {
+            return <ProjectList category={category} projects={projects} />;
+        })
+    }
 </Layout>
