@@ -42,13 +42,6 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
 </li>
 
 <style>
-    .card:hover {
-        .cta {
-            opacity: 1;
-            pointer-events: unset;
-        }
-    }
-
     .grid {
         display: grid;
         grid-template-columns: auto;
@@ -102,6 +95,15 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
             grid-template-areas:
                 "img content content"
                 "img date cta";
+        }
+    }
+
+    @media (hover: hover) {
+        .card:hover {
+            .cta {
+                opacity: 1;
+                pointer-events: unset;
+            }
         }
     }
 </style>
