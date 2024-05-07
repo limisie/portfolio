@@ -34,8 +34,7 @@ const {
         scroll-behavior: smooth;
 
         --spacer: 1rem;
-        --container-width: 75rem;
-        --container-padding: 1rem;
+        --container-width: 65rem;
         --nav-height: 3rem;
         --background-surface-height: 90vw;
 
@@ -68,7 +67,6 @@ const {
     @media (min-width: 40rem) {
         :root {
             --spacer: 2rem;
-            --container-padding: calc(5rem + 2rem);
             --background-surface-height: 48vh;
 
             --fs-h1: 3.5rem;
@@ -184,7 +182,7 @@ const {
     }
 
     section {
-        margin-bottom: calc(4 * var(--spacer));
+        margin-bottom: calc(2 * var(--spacer));
     }
 
     section:first-of-type {
@@ -194,7 +192,7 @@ const {
 
     .container {
         max-width: var(--container-width);
-        padding-inline: var(--container-padding);
+        padding: var(--spacer);
         margin: 0 auto;
     }
 
