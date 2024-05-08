@@ -14,15 +14,13 @@ const { category, projects } = Astro.props;
 
 <style>
     section:has(+ section) {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
     }
 
     .grid {
         display: grid;
         grid-template-columns: auto;
         gap: var(--spacer);
-
-        margin-top: 1rem;
     }
 
     @media (min-width: 60rem) {

@@ -13,9 +13,9 @@
             margin: 0 auto;
             background: var(--clr-secondary);
 
-            top: calc(3 * var(--nav-height));
-            bottom: calc(2 * var(--nav-height));
-            inset-inline: calc(2 * var(--nav-height));
+            top: calc(3 * (var(--nav-height) + 2 * var(--spacer)));
+            bottom: calc(var(--nav-height) + 2 * var(--spacer));
+            inset-inline: calc(var(--nav-height) + 2 * var(--spacer));
         }
 
         &::after {
@@ -28,14 +28,13 @@
         }
     }
 
-    @media (min-width: 40rem) {
-        .background::before {
-            top: calc(2 * var(--container-padding));
-            bottom: calc(1.5 * var(--container-padding));
-            inset-inline: calc(2 * var(--container-padding));
-            max-width: calc(
-                var(--container-width) - 4 * var(--container-padding)
-            );
+    @media (min-width: 42rem) {
+        .background {
+            &::before {
+                top: calc(2.5 * (var(--nav-height) + 2 * var(--spacer)));
+                inset-inline: calc(1.5 * (var(--nav-height) + 2 * var(--spacer)));
+                max-width: calc(var(--container-width) - 2 * (var(--nav-height) + 3 * var(--spacer)));
+            }
         }
     }
 </style>

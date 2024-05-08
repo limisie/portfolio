@@ -35,6 +35,7 @@ const {
 
         --spacer: 1rem;
         --container-width: 65rem;
+        --section-padding: 0;
         --nav-height: 3rem;
         --background-surface-height: 90vw;
 
@@ -67,6 +68,7 @@ const {
     @media (min-width: 40rem) {
         :root {
             --spacer: 2rem;
+            --section-padding: 5rem;
             --background-surface-height: 48vh;
 
             --fs-h1: 3.5rem;
@@ -128,7 +130,7 @@ const {
     h1 {
         font-family: var(--ff-montserrat);
         font-size: var(--fs-h1);
-        font-weight: var(--fw-extra-bold);
+        font-weight: var(--fw-medium);
         padding-bottom: 1rem;
     }
 
@@ -182,17 +184,20 @@ const {
     }
 
     section {
-        margin-bottom: calc(2 * var(--spacer));
+        margin-bottom: calc(3 * var(--spacer));
+
+        &:first-of-type {
+            padding-top: calc(var(--nav-height) + 2 * var(--spacer));
+        }
     }
 
-    section:first-of-type {
-        padding-top: var(--spacer);
-
+    section, footer, nav {
+        padding-inline: var(--section-padding);
     }
 
     .container {
         max-width: var(--container-width);
-        padding: var(--spacer);
+        padding-inline: var(--spacer);
         margin: 0 auto;
     }
 

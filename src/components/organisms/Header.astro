@@ -14,19 +14,21 @@ const navLinks = [
 ---
 
 <header transition:persist>
-    <nav class="hidden flex container">
-        <ul class="flex unstyle-list">
-            {
-                navLinks.map((link) => (
-                    <li>
-                        <NavLink href={link.path} text={link.text} />
-                    </li>
-                ))
-            }
-            <li>
-                <ThemeSwitcher />
-            </li>
-        </ul>
+    <nav class="hidden">
+        <div class="container flex">
+            <ul class="flex unstyle-list">
+                {
+                    navLinks.map((link) => (
+                        <li>
+                            <NavLink href={link.path} text={link.text} />
+                        </li>
+                    ))
+                }
+                <li>
+                    <ThemeSwitcher />
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="main-menu logo">
@@ -47,8 +49,7 @@ const navLinks = [
 
 <style>
     header {
-        position: relative;
-        height: calc(var(--nav-height) + 2 * var(--spacer));
+        position: absolute;
     }
 
     .main-menu {
@@ -76,11 +77,6 @@ const navLinks = [
         z-index: 1;
         inset-inline: 0;
         top: 0;
-        height: var(--nav-height);
-        margin-top: var(--spacer);
-
-        justify-content: end;
-        align-items: center;
 
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
@@ -94,6 +90,13 @@ const navLinks = [
             transition: opacity 0.2s ease-in;
         }
 
+        .container {
+            justify-content: end;
+            align-items: center;
+            margin-top: var(--spacer);
+            height: var(--nav-height);
+        }
+
         ul {
             justify-content: flex-end;
         }
@@ -103,11 +106,13 @@ const navLinks = [
             height: 100vh;
             max-width: unset;
 
-            justify-content: center;
-            align-items: start;
-
             backdrop-filter: blur(var(--spacer));
             -webkit-backdrop-filter: blur(var(--spacer));
+
+            .container {
+                justify-content: center;
+                align-items: start;
+            }
 
             ul {
                 margin-top: calc(var(--nav-height) + var(--spacer));

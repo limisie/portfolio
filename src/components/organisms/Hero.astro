@@ -20,20 +20,18 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
 <style>
     section {
         position: relative;
-        top: calc(-1 * (var(--nav-height) + 2 * var(--spacer)));
-
-        margin: 0;
-        padding: 0;
         min-height: 100vw;
     }
 
     .container {
-        padding-top: 50vw;
+        padding-top: calc(3 * (var(--nav-height) + 2 * var(--spacer)));
+        padding-bottom: calc(var(--nav-height) + 3 * var(--spacer));
     }
 
     .text {
         h1 {
-            text-wrap: balance;
+            font-weight: var(--fw-extra-bold);
+            padding-bottom: 0;
             max-width: 16rem;
         }
 
@@ -50,12 +48,13 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
     }
 
     @media (min-width: 40rem) {
-        section {
-            min-height: 80vh;
+        .container {
+            padding-top: calc(2.5 * (var(--nav-height) + 2 * var(--spacer)));
+            padding-bottom: calc(var(--nav-height) + 3 * var(--spacer));
         }
 
-        .container {
-            padding-top: 36vh;
+        section {
+            min-height: 80vh;
         }
 
         .text {
