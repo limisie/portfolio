@@ -7,27 +7,47 @@ const {
 ---
 
 <div class="flex">
-    <a
-        class:list={["left-arrow", { disabled: currentPage <= 1 }]}
-        href={url.prev}
-        ><Fragment
-            set:html={leftArrow}
-            aria-label={currentPage <= 1
-                ? "no previous page"
-                : `go back to the previous page (page ${currentPage - 1} of ${lastPage})`}
-        /></a
-    >
+    {
+        currentPage == 1 ? (
+            <div class="arrow disabled">
+                <Fragment set:html={leftArrow} />
+            </div>
+        ) : (
+            <a
+                class="left-arrow"
+                href={url.prev}
+                aria-label={
+                    currentPage <= 1
+                        ? "no previous page"
+                        : `go back to the previous page (page ${currentPage - 1} of ${lastPage})`
+                }
+            >
+                <Fragment set:html={leftArrow} />
+            </a>
+        )
+    }
+
     <p>{currentPage}</p>
-    <a
-        class:list={["right-arrow", { disabled: currentPage >= lastPage }]}
-        href={url.next}
-        ><Fragment
-            set:html={rightArrow}
-            aria-label={currentPage >= lastPage
-                ? "no more pages"
-                : `go to the next page (page ${currentPage + 1} of ${lastPage})`}
-        /></a
-    >
+
+    {
+        currentPage == lastPage ? (
+            <div class="arrow disabled">
+                <Fragment set:html={rightArrow} />
+            </div>
+        ) : (
+            <a
+                class="right-arrow"
+                href={url.next}
+                aria-label={
+                    currentPage >= lastPage
+                        ? "no more pages"
+                        : `go to the next page (page ${currentPage + 1} of ${lastPage})`
+                }
+            >
+                <Fragment set:html={rightArrow} />
+            </a>
+        )
+    }
 </div>
 
 <style>
@@ -37,7 +57,7 @@ const {
         gap: 0.5rem;
     }
 
-    a[class*="arrow"] {
+    *[class*="arrow"] {
         fill: var(--clr-text);
         transition: transform 0.3s ease-in-out;
 

@@ -1,8 +1,8 @@
 ---
-const { href = "/", text, iconRight, iconLeft } = Astro.props;
+const { href = "/", text, iconRight, iconLeft, ariaLabel="" } = Astro.props;
 ---
 
-<a href={href} class="flex">
+<a href={href} class="flex" aria-label={ariaLabel}>
     {
         iconLeft && (
             <span class="icon-left">
