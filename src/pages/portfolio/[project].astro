@@ -1,7 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import CardList from "@components/organisms/CardList.astro";
-import { getDateYear, sortByCategory, slugify } from "@scripts/utils.js";
+import { sortByCategory } from "@scripts/utils.js";
 import { data } from "@scripts/data.js";
 import ProjectDetails from "@components/organisms/ProjectContent.astro";
 
@@ -19,6 +19,7 @@ export async function getStaticPaths() {
                     startDate: project.startDate,
                     endDate: project.endDate,
                     title: project.title,
+                    url: project.githubLink,
                     description: project.description,
                     images: project.screenshots,
                 },

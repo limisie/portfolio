@@ -13,6 +13,7 @@ const {
         title,
         description,
         images,
+        url,
     },
 } = Astro.props;
 
@@ -36,12 +37,14 @@ const dateString = endDate
                 <div id="title">
                     <h1>{title}</h1>
                 </div>
+
                 <div id="roles">
                     <p class="light-font">My roles</p>
                     <ul class="unstyle-list">
                         {roles.map((role) => <li>{role}</li>)}
                     </ul>
                 </div>
+
                 <div id="technologies">
                     <p class="light-font">Used technologies</p>
                     <ul class="unstyle-list">
@@ -52,10 +55,28 @@ const dateString = endDate
                         }
                     </ul>
                 </div>
+
                 <div id="date">
                     <p id="date-label" class="light-font">Year</p>
                     <p>{dateString}</p>
                 </div>
+
+                {
+                    url && (
+                        <div id="link">
+                            <p id="link-label" class="light-font">
+                                GitHub repository
+                            </p>
+                            <a
+                                href={url}
+                                aria-label="link to github repository"
+                            >
+                                {url}
+                            </a>
+                        </div>
+                    )
+                }
+
                 <div id="description" class="flow-content">
                     <Markdown content={description} />
                 </div>
@@ -88,27 +109,23 @@ const dateString = endDate
 
     .grid {
         display: grid;
-        grid-template-columns: auto auto;
 
         grid-template-areas:
             "category date"
             "title title"
             "description description"
-            "roles technologies";
+            "roles technologies"
+            "link link";
         gap: 1rem;
         margin-bottom: var(--spacer);
 
-        div[id] > p {
+        div[id] > .light-font {
             margin-bottom: 0.3rem;
         }
 
         #category {
             grid-area: category;
             align-self: center;
-
-            p {
-                margin-bottom: 0;
-            }
         }
 
         #title {
@@ -131,9 +148,13 @@ const dateString = endDate
             #date-label {
                 display: none;
             }
+        }
 
-            p:last-child {
-                margin-bottom: 0;
+        #link {
+            grid-area: link;
+
+            a:hover {
+                text-decoration: underline;
             }
         }
 
@@ -144,7 +165,6 @@ const dateString = endDate
             --flow-space: 0.7rem;
 
             ul {
-                margin-block: 1.5rem;
                 padding-inline-start: 1rem;
 
                 li {
@@ -163,7 +183,8 @@ const dateString = endDate
                 "title title description"
                 "roles technologies description"
                 "date technologies description"
-                ". . description";
+                ". . description"
+                "link link description";
 
             #date {
                 text-align: unset;
