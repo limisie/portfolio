@@ -27,7 +27,7 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
         </div>
         <div class="flow-content">
             <TagList rootDir="blog" tags={tags} />
-            <h4>{title}</h4>
+            <h3>{title}</h3>
             <p class="abstract">{excerpt}</p>
         </div>
         <p class="date light-font">{publishDate}</p>
@@ -65,7 +65,7 @@ const { coverImage, tags, title, excerpt, publishDate, slug } = Astro.props;
         grid-area: content;
 
         .abstract {
-            font-size: var(--fs-small);
+            font-size: var(--fs-xs);
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 3;

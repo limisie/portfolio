@@ -5,12 +5,10 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
 
 <section>
     <div class="container">
-        <div class="text">
-            <h1>Jack of all trades master of none</h1>
-            <div class="block">
-                <p>but oftentimes better than a master of</p>
-                <CircledText text="one" />
-            </div>
+        <h1>Jack of all trades master of none</h1>
+        <div class="block">
+            <p>but oftentimes better than a master of</p>
+            <CircledText text="one" />
         </div>
     </div>
 
@@ -24,20 +22,20 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
     }
 
     .container {
-        padding-top: calc(3 * (var(--nav-height) + 2 * var(--spacer)));
-        padding-bottom: calc(var(--nav-height) + 3 * var(--spacer));
-    }
+        padding-top: 20vh;
+        padding-bottom: calc(var(--nav-height) + 2 * var(--spacer));
 
-    .text {
         h1 {
             font-weight: var(--fw-extra-bold);
             padding-bottom: 0;
-            max-width: 16rem;
+            max-width: 19rem;
         }
 
         .block {
             text-align: end;
-            max-width: 10rem;
+            font-size: var(--fs-m);
+
+            max-width: 13rem;
             margin-left: auto;
             margin-top: var(--spacer);
         }
@@ -49,23 +47,20 @@ import HeroBackground from "@components/molecules/HeroBackground.astro";
 
     @media (min-width: 40rem) {
         .container {
-            padding-top: calc(2.5 * (var(--nav-height) + 2 * var(--spacer)));
-            padding-bottom: calc(var(--nav-height) + 3 * var(--spacer));
-        }
+            padding-top: 28vh;
 
-        section {
-            min-height: 80vh;
-        }
-
-        .text {
             h1 {
+                font-size: 3.5rem;
                 max-width: 37rem;
             }
 
             .block {
                 max-width: 14rem;
-                font-size: var(--fs-medium);
             }
+        }
+
+        section {
+            min-height: 80vh;
         }
     }
 </style>

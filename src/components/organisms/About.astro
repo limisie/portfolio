@@ -5,22 +5,27 @@ import rightArrow from "@assets/icons/right-arrow.svg?raw";
 
 <section>
     <div class="container flex vertical-split">
-        <div>
-            <h2>
-                I'm an independent Computer Science graduate with a background
-                in architecture design.
-            </h2>
-        </div>
-        <div class="flow-content">
-            <p>
-                I'm a lifelong learner and a passionate creator, driven to bring
-                ideas to life across various mediums.
-            </p>
-            <p>
-                I am currently looking for a software development role that will nurture
-                my growth as a developer.
-            </p>
-            <IconLink href="/about" text="Get to know me" iconRight={rightArrow} ariaLabel="link to About me page"/>
+        <h2>
+            I'm an independent Computer Science graduate with a background in
+            architecture design.
+        </h2>
+        <div class="flex">
+            <div class="flow-content">
+                <p>
+                    I'm a lifelong learner and a passionate creator, driven to
+                    bring ideas to life across various mediums.
+                </p>
+                <p>
+                    I am currently looking for a software development role that
+                    will nurture my growth as a developer.
+                </p>
+            </div>
+            <IconLink
+                href="/about"
+                text="Get to know me"
+                iconRight={rightArrow}
+                ariaLabel="link to About me page"
+            />
         </div>
     </div>
 </section>
@@ -36,13 +41,29 @@ import rightArrow from "@assets/icons/right-arrow.svg?raw";
 
     .flex.vertical-split {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
         --first-split: 60%;
+        gap: 2rem;
+
+        h2 {
+            font-size: var(--fs-m);
+            align-self: center;
+        }
+    }
+
+    .flex:has(> .flow-content) {
+        flex-direction: column;
+        align-items: start;
+        gap: 2rem;
     }
 
     @media (min-width: 40rem) {
         .flex.vertical-split {
             flex-direction: row-reverse;
+
+            h2 {
+                font-size: var(--fs-l);
+            }
         }
     }
 </style>

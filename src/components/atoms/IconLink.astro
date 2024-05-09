@@ -1,23 +1,11 @@
 ---
-const { href = "/", text, iconRight, iconLeft, ariaLabel="" } = Astro.props;
+const { href = "/", text, iconRight, iconLeft, ariaLabel = "" } = Astro.props;
 ---
 
 <a href={href} class="flex" aria-label={ariaLabel}>
-    {
-        iconLeft && (
-            <span class="icon-left">
-                <Fragment set:html={iconLeft} />
-            </span>
-        )
-    }
+    {iconLeft && <span class="icon-left" set:html={iconLeft} />}
     <p>{text}</p>
-    {
-        iconRight && (
-            <span class="icon-right">
-                <Fragment set:html={iconRight} />
-            </span>
-        )
-    }
+    {iconRight && <span class="icon-right" set:html={iconRight} />}
 </a>
 
 <style>
@@ -27,23 +15,20 @@ const { href = "/", text, iconRight, iconLeft, ariaLabel="" } = Astro.props;
         gap: 0.1rem;
     }
 
-    span {
-        line-height: 0.5;
-    }
-
     a {
         fill: var(--clr-text);
 
-        [class*="icon"] {
-            transition: all 0.3s ease-in-out;
+        span {
+            line-height: 0.5;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        p {
+            text-wrap:nowrap;
         }
 
         &:hover {
             opacity: 0.5;
-
-            [class*="icon"] {
-                transition: transform 0.3s ease-in-out;
-            }
 
             .icon-left {
                 transform: translateX(-3px);

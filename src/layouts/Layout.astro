@@ -43,14 +43,11 @@ const {
         --ff-montserrat: "Montserrat", sans-serif;
         --ff-quicksand: "Quicksand", sans-serif;
 
-        --fs-h1: 1.75rem;
-        --fs-h2: 1.25rem;
-        --fs-h3: 1.375rem;
-        --fs-h4: 1rem;
-
-        --fs-p: 1rem;
-        --fs-medium: 1.375rem;
-        --fs-small: 0.875rem;
+        --fs-xl: 2rem;
+        --fs-l: 1.5rem;
+        --fs-m: 1.25rem;
+        --fs-s: 1rem;
+        --fs-xs: 0.875rem;
 
         --fw-light: 300;
         --fw-medium: 500;
@@ -71,16 +68,18 @@ const {
             --section-padding: 5rem;
             --background-surface-height: 48vh;
 
-            --fs-h1: 3.5rem;
-            --fs-h2: 2.375rem;
-            --fs-h3: 2.25rem;
-            --fs-h4: 1.25rem;
+            --fs-xl: 3.5rem;
+            --fs-l: 2.375rem;
         }
     }
 
-    @media (max-width: 75rem) {
+    @media (min-width: 40rem) and (max-width: 75rem) {
         :root {
             --container-width: 55rem;
+
+            --fs-xl: 2.5rem;
+            --fs-l: 2rem;
+            --fs-m: 1.15rem
         }
     }
 
@@ -135,26 +134,25 @@ const {
 
     h1 {
         font-family: var(--ff-montserrat);
-        font-size: var(--fs-h1);
+        font-size: var(--fs-xl);
         font-weight: var(--fw-medium);
         padding-bottom: 1rem;
     }
 
     h2 {
         font-family: var(--ff-montserrat);
-        font-size: var(--fs-h2);
-        font-weight: var(--fw-bold);
+        font-size: var(--fs-l);
+        font-weight: var(--fw-semi-bold);
     }
 
     h3 {
-        font-family: var(--ff-quicksand);
-        font-size: var(--fs-h3);
-        font-weight: var(--fw-medium);
+        font-size: var(--fs-m);
+        font-weight: var(--fw-semi-bold);
     }
 
     h4 {
         font-family: var(--ff-rubik);
-        font-size: var(--fs-h4);
+        font-size: var(--fs-s);
         font-weight: var(--fw-semi-bold);
     }
 
@@ -257,7 +255,7 @@ const {
     }
 
     .light-font {
-        font-size: var(--fs-small);
+        font-size: var(--fs-xs);
         color: var(--clr-text);
         opacity: 0.7;
     }
