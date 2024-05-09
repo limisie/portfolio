@@ -22,7 +22,7 @@ const {
     <Head title={title} description={description} image={image} />
     <body>
         <Header transition:animate="none" />
-        <main transition:animate="fade">
+        <main>
             <slot />
         </main>
         <Footer transition:animate="none" />
@@ -75,6 +75,12 @@ const {
             --fs-h2: 2.375rem;
             --fs-h3: 2.25rem;
             --fs-h4: 1.25rem;
+        }
+    }
+
+    @media (max-width: 75rem) {
+        :root {
+            --container-width: 55rem;
         }
     }
 
