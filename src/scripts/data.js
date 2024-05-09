@@ -35,11 +35,12 @@ const allProjectsRequest = {
             slug
             title
             excerpt
-            startDate
+            date
             endDate
             description
             roles
             technologies
+            githubLink
             coverImage {
                 alt
                 url
