@@ -12,7 +12,7 @@ const {
     postData: { tags, title, publishDate, body, image },
 } = Astro.props;
 
-const headings = getHeadingsFromDastDocument(body);
+const headings = getHeadingsFromDastDocument(body, 2);
 ---
 
 <section>
@@ -78,7 +78,7 @@ const headings = getHeadingsFromDastDocument(body);
             );
 
             const article = document.querySelector("article");
-            const articleHeaders = article.querySelectorAll("h1");
+            const articleHeaders = article.querySelectorAll("h2");
             const introduction = article.firstElementChild;
             const targets = [introduction, ...articleHeaders];
             targets.map((target) => {
