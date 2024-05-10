@@ -1,4 +1,4 @@
-import { render } from "datocms-structured-text-to-plain-text";
+import { render } from "datocms-structured-text-to-html-string";
 import type { StructuredText, Heading } from "datocms-structured-text-utils";
 
 const ordinalSuffixes = {
@@ -47,8 +47,13 @@ export function getDateWithOrdinalSuffix(dateString, locale = "en") {
 
 
 export function getTimeToReadDastDocument(document: StructuredText, wordsPerMinute = 225) {
-    const plainText = render(document);
-    const words = plainText ? plainText.trim().split(/\s+/).length : 0;
+    const options = {
+        renderBlock({ record, adapter: { renderNode } }) {
+            return renderNode("p", {}, record.image.title)
+        },
+    };
+    const text = render(document, options);
+    const words = text ? text.trim().split(/\s+/).length : 0;
     const timeToRead = Math.ceil(words / wordsPerMinute);
     return timeToRead
 }
