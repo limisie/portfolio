@@ -35,7 +35,7 @@ const allProjectsRequest = {
             slug
             title
             excerpt
-            date
+            startDate
             endDate
             description
             roles
