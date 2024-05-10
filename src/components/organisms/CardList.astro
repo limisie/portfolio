@@ -36,6 +36,10 @@ const { listHeader, list, href = "/", linkLabel = "See all" } = Astro.props;
     }
 
     @media (min-width: 40rem) {
+        h2 {
+            font-weight: var(--fw-medium);
+        }
+
         .flex:nth-of-type(2) {
             flex-direction: unset;
             gap: 1rem;

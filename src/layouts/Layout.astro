@@ -142,7 +142,6 @@ const {
     h2 {
         font-family: var(--ff-montserrat);
         font-size: var(--fs-l);
-        font-weight: var(--fw-semi-bold);
     }
 
     h3 {
@@ -271,8 +270,8 @@ const {
     .card {
         position: relative;
 
-        > a:first-child::before {
-            content: " ";
+        > a:first-child {
+            content: "";
             position: absolute;
             inset: 0;
             z-index: 1;
