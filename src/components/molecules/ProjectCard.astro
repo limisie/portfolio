@@ -3,7 +3,16 @@ import { getDateYear } from "@scripts/utils";
 import { Image } from "astro:assets";
 
 const {
-    project: { title, excerpt, startDate, endDate, slug, coverImage },
+    project: {
+        title,
+        excerpt,
+        startDate,
+        endDate,
+        slug,
+        coverImage,
+        category,
+        roles,
+    },
 } = Astro.props;
 
 const dateString = endDate
@@ -11,66 +20,101 @@ const dateString = endDate
     : `${getDateYear(startDate)}`;
 ---
 
-<div class="card">
-    <a href=`/portfolio/${slug}` aria-label={`go to my portfolio project ${title}`}></a>
-    <div class="img-wrapper">
-        {
-            coverImage ? (
-                <Image
-                    src={coverImage.url}
-                    alt={coverImage.alt}
-                    inferSize={true}
-                    format="avif"
-                    quality={"mid"}
-                />
-            ) : (
-                <div class="placeholder-background" />
-            )
-        }
+<li class="card">
+    <a
+        href=`/portfolio/${slug}`
+        aria-label={`go to my portfolio project ${title}`}></a>
+
+    <div class="background">
+        <div class="img-wrapper">
+            {
+                coverImage ? (
+                    <Image
+                        src={coverImage.url}
+                        alt={coverImage.alt}
+                        inferSize={true}
+                        format="avif"
+                        quality={"mid"}
+                    />
+                ) : (
+                    <div class="placeholder-background" />
+                )
+            }
+        </div>
     </div>
+
     <div class="details flex">
         <div class="flow-content">
-            <h3 class=""><span>{title}</span></h3>
-            <p class="light-font"><span>{excerpt}</span></p>
+            <div class="flex">
+                <p class="light-font">{category}</p>
+                <p class="light-font">{dateString}</p>
+            </div>
+            <h2>{title}</h2>
+            <p class="excerpt">{excerpt}</p>
         </div>
-        <p class="light-font"><span>{dateString}</span></p>
+
+        <div class="roles flex">
+            {roles.map((role) => <p class="light-font">{role}</p>)}
+        </div>
     </div>
-</div>
+</li>
 
 <style>
     .card {
-        aspect-ratio: 1.618/1;
-        position: relative;
+        .background {
+            position: absolute;
+            z-index: -1;
+            inset: 0;
 
-        span {
-            padding: 0.1rem;
-            background: #f6f6f6d7;
-            color: var(--darkGrey);
-            line-height: 1.4;
-        }
+            .img-wrapper {
+                height: 100%;
 
-        .light-font {
-            opacity: 1;
+                img {
+                    opacity: 0.15;
+                }
+            }
         }
 
         .details {
-            position: absolute;
-            inset: 1rem;
+            height: 100%;
+            padding: 1rem;
+
             flex-direction: column;
             align-items: start;
-            --flow-space: 0.3rem;
+            justify-content: space-between;
 
-            transition: opacity 0.3s ease-in-out;
-        }
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
 
-        .img-wrapper {
-            height: 100%;
-            background: var(--clr-background);
+            .flow-content {
+                --flow-space: 0.5rem;
+                width: 100%;
+
+                h2 {
+                    font-size: var(--fs-m);
+                }
+
+                .excerpt {
+                    font-size: var(--fs-xs);
+                }
+            }
+
+            .roles {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                column-gap: 1rem;
+                row-gap: 0;
+            }
         }
 
         &:hover {
             .details {
                 opacity: 0;
+            }
+
+            .img-wrapper img {
+                opacity: 1;
+                mix-blend-mode: normal;
             }
         }
     }

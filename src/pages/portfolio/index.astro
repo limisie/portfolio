@@ -4,20 +4,8 @@ import ProjectList from "@components/organisms/ProjectList.astro";
 import { data } from "@scripts/data.js";
 
 const projects = data.projects;
-const categories = [...new Set(projects.map((project) => project.category))];
-
-const projectsByCategory = categories.map((category) => {
-    return {
-        category: category,
-        projects: projects.filter((project) => project.category == category),
-    };
-});
 ---
 
 <Layout title="Portfolio | Kaja Limisiewicz" description={`My portfolio page.`}>
-    {
-        projectsByCategory.map(({ category, projects }) => {
-            return <ProjectList category={category} projects={projects} />;
-        })
-    }
+    <ProjectList heading="My work" projects={projects} />
 </Layout>

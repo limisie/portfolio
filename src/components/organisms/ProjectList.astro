@@ -1,31 +1,33 @@
 ---
 import ProjectCard from "@components/molecules/ProjectCard.astro";
-const { category, projects } = Astro.props;
+const { heading, projects } = Astro.props;
 ---
 
 <section>
     <div class="container">
-        <h1>{category}</h1>
-        <div class="grid">
+        <h1>{heading}</h1>
+        <ul class="unstyle-list grid">
             {projects.map((project) => <ProjectCard project={project} />)}
-        </div>
+        </ul>
     </div>
 </section>
 
 <style>
-    section:has(+ section) {
-        margin-bottom: 2rem;
-    }
-
     .grid {
         display: grid;
-        grid-template-columns: auto;
+        grid-auto-rows: 1fr;
         gap: var(--spacer);
     }
 
     @media (min-width: 60rem) {
         .grid {
             grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (min-width: 40rem) {
+        .grid {
+            margin-top: 1rem;
         }
     }
 </style>
