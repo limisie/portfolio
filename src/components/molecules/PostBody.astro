@@ -72,11 +72,22 @@ const renderedHTML = render(content, options);
             }
         }
 
+        code {
+            background-color: hsl(from var(--clr-surface) h s calc(l + var(--clr-variation)));
+            padding: 0.15rem 0.35rem;
+            border-radius: 0.4rem;
+        }
+
+        p:has(code) + p, p + ul {
+            margin-top: 0.4rem;
+        }
+
         pre {
-            background-color: var(--clr-surface);
-            margin-inline: calc(-1 * var(--spacer));
-            margin-block: 2rem;
-            padding: var(--spacer);
+            background-color: hsl(from var(--clr-surface) h s calc(l + var(--clr-variation)));
+            border-radius: 0.2rem;
+            margin-inline: -1rem;
+            margin-block: 1.5rem;
+            padding: 1rem;
             overflow-x: scroll;
         }
 
@@ -90,8 +101,8 @@ const renderedHTML = render(content, options);
         [id]::before {
             content: "";
             display: block;
-            height: 8rem;
-            margin-top: -8rem;
+            height: 2.2rem;
+            margin-top: -2.2rem;
             visibility: hidden;
         }
     }

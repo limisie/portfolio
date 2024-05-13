@@ -11,7 +11,12 @@ const headingsData = headings.map((heading) => ({
 <aside>
     {
         headingsData.map((heading) => (
-            <a href={heading.href} class="flex" id={heading.id} aria-label={`scroll to ${heading.text} section of this post`}>
+            <a
+                href={heading.href}
+                class="flex"
+                id={heading.id}
+                aria-label={`scroll to ${heading.text} section of this post`}
+            >
                 <div class="line" />
                 <p>{heading.text}</p>
             </a>
@@ -33,6 +38,8 @@ const headingsData = headings.map((heading) => ({
 
         a[id*="toc-"] {
             opacity: 0.5;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
 
             .line {
                 position: relative;
@@ -49,12 +56,6 @@ const headingsData = headings.map((heading) => ({
                 font-weight: var(--fw-light);
             }
 
-            &.flex {
-                gap: 0.5rem;
-                margin-bottom: 1rem;
-                opacity: 0.5;
-            }
-
             &.active {
                 opacity: 1;
 
@@ -63,7 +64,7 @@ const headingsData = headings.map((heading) => ({
                     content: " ";
                     width: 100%;
                     background: var(--clr-text);
-                    height: 0.5px;
+                    height: 1px;
                     border-radius: 0.5px;
                 }
             }
